@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Thanh Chung's Blog]]></title><description><![CDATA[My Blog]]></description><link>https://thanhchungbtc.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 24 Apr 2018 13:34:44 GMT</lastBuildDate><item><title><![CDATA[You only live once]]></title><description><![CDATA[Fusce a metus eu diam varius congue nec nec sapien. Nunc convallis accumsan justo.  Pellentesque  habitant morbi tristique senectus et netus…]]></description><link>https://thanhchungbtc.github.io/you-only-live-once/</link><guid isPermaLink="false">https://thanhchungbtc.github.io/you-only-live-once/</guid><content:encoded>&lt;p&gt;Fusce a metus eu diam varius congue nec nec sapien. Nunc convallis accumsan justo. &lt;strong&gt;Pellentesque&lt;/strong&gt; habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec malesuada vehicula lectus, viverra sodales ipsum gravida nec. &lt;em&gt;Integer gravida&lt;/em&gt; nisi ut magna mollis molestie. Nullam &lt;a href=&quot;http://google.com&quot;&gt;pharetra&lt;/a&gt; accumsan sagittis. Proin tristique rhoncus orci, eget vulputate nisi sollicitudin et. Quisque lacus augue, mollis non mollis et, ullamcorper in purus. Morbi et sem orci.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Thanh Chung's Blog]]></title><description><![CDATA[My Blog]]></description><link>https://thanhchungbtc.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 24 Apr 2018 13:49:46 GMT</lastBuildDate><item><title><![CDATA[You only live once]]></title><description><![CDATA[Fusce a metus eu diam varius congue nec nec sapien. Nunc convallis accumsan justo.  Pellentesque  habitant morbi tristique senectus et netus…]]></description><link>https://thanhchungbtc.github.io/you-only-live-once/</link><guid isPermaLink="false">https://thanhchungbtc.github.io/you-only-live-once/</guid><content:encoded>&lt;p&gt;Fusce a metus eu diam varius congue nec nec sapien. Nunc convallis accumsan justo. &lt;strong&gt;Pellentesque&lt;/strong&gt; habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec malesuada vehicula lectus, viverra sodales ipsum gravida nec. &lt;em&gt;Integer gravida&lt;/em&gt; nisi ut magna mollis molestie. Nullam &lt;a href=&quot;http://google.com&quot;&gt;pharetra&lt;/a&gt; accumsan sagittis. Proin tristique rhoncus orci, eget vulputate nisi sollicitudin et. Quisque lacus augue, mollis non mollis et, ullamcorper in purus. Morbi et sem orci.&lt;/p&gt;
 &lt;h3&gt;On deer horse aboard tritely yikes and much&lt;/h3&gt;
 &lt;p&gt;Praesent accumsan odio in ante ullamcorper id pellentesque mauris rhoncus. Duis vitae neque dolor. Duis sed purus at eros bibendum cursus nec a nulla. Donec turpis quam, ultricies id pretium sit amet, gravida eget leo.&lt;/p&gt;
 &lt;p&gt;
@@ -563,4 +563,28 @@ selet &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class
 &lt;p&gt;では、なんでその場合&lt;code class=&quot;language-text&quot;&gt;postgres&lt;/code&gt;は自動にTransactionを終了させてくれないの？こうすると毎回Syntaxとかタイプミス等で&lt;code class=&quot;language-text&quot;&gt;rollback&lt;/code&gt;を打たないといけなく、面倒くさいなと思うんでしょう。
 例えば、長いトランザクションの中にタイプミスで最初から始めないといけないとなら。。。
 もし&lt;code class=&quot;language-text&quot;&gt;psql&lt;/code&gt;を使用したら&lt;code class=&quot;language-text&quot;&gt;onerrorrollback&lt;/code&gt;という設定を指定することで自動に&lt;code class=&quot;language-text&quot;&gt;rollback&lt;/code&gt;してくれます。&lt;/p&gt;
-&lt;p&gt;詳しく読みたい場合は&lt;a href=&quot;OnErrorRollBack%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%EF%BC%88%E8%91%97%E4%BD%9C%E8%80%85%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0%EF%BC%89&quot;&gt;https://www.endpoint.com/blog/2015/02/24/postgres-onerrorrollback-explained&lt;/a&gt;をご参照ください。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[国旗に紫いろがない]]></title><link>https://thanhchungbtc.github.io/2018-03-02-why-flag-not-have-purple/</link><guid isPermaLink="false">https://thanhchungbtc.github.io/2018-03-02-why-flag-not-have-purple/</guid><content:encoded></content:encoded></item></channel></rss>
+&lt;p&gt;詳しく読みたい場合は&lt;a href=&quot;OnErrorRollBack%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%EF%BC%88%E8%91%97%E4%BD%9C%E8%80%85%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0%EF%BC%89&quot;&gt;https://www.endpoint.com/blog/2015/02/24/postgres-onerrorrollback-explained&lt;/a&gt;をご参照ください。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[国旗に紫いろがない]]></title><description><![CDATA[…]]></description><link>https://thanhchungbtc.github.io/2018-03-02-why-flag-not-have-purple/</link><guid isPermaLink="false">https://thanhchungbtc.github.io/2018-03-02-why-flag-not-have-purple/</guid><content:encoded>&lt;p&gt;紫色は国旗に使用禁止？&lt;/p&gt;
+&lt;p&gt;現在世界の中に１９６国があり、国旗のデザインや色も様々なんですが
+全て共通点があります。それは紫色を使用する国旗はほとんどないことです。
+人類歴史にも紫色を代表として使われる古代文明や王様はありませんでした。
+現在よく使われて人気のある色なのに昔は紫色に何があったのでしょうか。&lt;/p&gt;
+&lt;p&gt;紫色が使われない理由&lt;/p&gt;
+&lt;p&gt;実は
+自然になく、基本色からも簡単に作れない昔紫色は珍しくてお金持ちや王様の権威や有名な人などにしか使われなく、威力を表す色でした。
+Phoeniciaという古代文明の商人たちはお金を儲けるために何か特別で価値のあるものを作り出そうと思って紫色
+を作り出し始めました。最初はたった１グラムの紫色の染料を撮るには１万個の巻貝が必要だそうです。
+現代の価格は１００グラム相当１４０万円の金額になっています。
+そのため、紫色はだんだん王様や支配階級の色になってきたわけです。
+３世紀に百戰百勝のローマのAurelianus王様は奥様が憧れた紫のスカーフは買ってあげなかった話があります。
+理由は高すぎるんでしょうか。&lt;/p&gt;
+&lt;p&gt;ですから、豊富な国でも国旗に紫色を使用しないようにしてきました。&lt;/p&gt;
+&lt;p&gt;いつ紫色は普及したのか
+役１．５世紀前に
+１８５６年英国の科学者William Henry Perkinはマラリアの療薬を研究する最中にたまたま紫色の化合物の作り方を発見しました。
+この化合物は布を染色できると気づいたPerkinは紫の染料を大量生産し、現在のように紫色は身近なものになりました。&lt;/p&gt;
+&lt;p&gt;現在はだれでも紫のシャツや靴下など着れるようになり、紫色に対しての概念もなくなりましたが、
+国旗にはまだまだ見ることはありません。
+もちろん近年生まれたばかりの国、例えばDominicaなどは少し見えてきましたが、
+これから国旗はどう変化していくのでしょうか。
+ちなみに、同じ色でも意味が異なるベトナムと日本の旗の赤い色なんですが、確かに日本太陽を表し、ベトナムは戦争で国を守ってくれる人々の血液を表すものです。
+あなたの国の旗について是非聞かせてください。&lt;/p&gt;</content:encoded></item></channel></rss>

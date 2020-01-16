@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        [Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API - Thanh Chung Bui&#39;s Blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="今回はAPIを使って、実際のMoviesデータを表示しましょう。 ゴール Movie API ネットワーキング、RestAPI Asynchronous: Future, async, await 非同期オペレーションを実装" />
+  <meta name="generator" content="Hugo 0.62.2 with theme pure" />
+  <title>[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API - Thanh Chung Bui&#39;s Blog</title>
+  
+  
+  <link rel="stylesheet" href="https://thanhchungbtc.github.io/css/style.min.9aaa883ebea87c2fd2d087c069cb2736c5f6cb2d52460262cad27bb9f932afc8.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/vs.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API" />
+<meta property="og:description" content="今回はAPIを使って、実際のMoviesデータを表示しましょう。 ゴール Movie API ネットワーキング、RestAPI Asynchronous: Future, async, await 非同期オペレーションを実装" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/" />
+<meta property="article:published_time" content="2019-12-03T14:14:04+09:00" />
+<meta property="article:modified_time" content="2019-12-03T14:14:04+09:00" />
+<meta itemprop="name" content="[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API">
+<meta itemprop="description" content="今回はAPIを使って、実際のMoviesデータを表示しましょう。 ゴール Movie API ネットワーキング、RestAPI Asynchronous: Future, async, await 非同期オペレーションを実装">
+<meta itemprop="datePublished" content="2019-12-03T14:14:04&#43;09:00" />
+<meta itemprop="dateModified" content="2019-12-03T14:14:04&#43;09:00" />
+<meta itemprop="wordCount" content="1209">
+
+
+
+<meta itemprop="keywords" content="iOS,flutter,crossplatform," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API"/>
+<meta name="twitter:description" content="今回はAPIを使って、実際のMoviesデータを表示しましょう。 ゴール Movie API ネットワーキング、RestAPI Asynchronous: Future, async, await 非同期オペレーションを実装"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/thanhchungbtc" target="_blank">
+            <img class="img-circle img-rotate" src="https://thanhchungbtc.github.io/avatar.jpeg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">Thanh Chung Bui</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">Software developer</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Tokyo, Japan</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="Type something..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside  class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"> Tags</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/apache/" class="tag-list-link">apache</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/bom/" class="tag-list-link">bom</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/coprocess/" class="tag-list-link">coprocess</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/crossplatform/" class="tag-list-link">crossplatform</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/flutter/" class="tag-list-link">flutter</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/https/" class="tag-list-link">https</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/ios/" class="tag-list-link">ios</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/php/" class="tag-list-link">php</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/postgres/" class="tag-list-link">postgres</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/security/" class="tag-list-link">security</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/shell/" class="tag-list-link">shell</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/tip/" class="tag-list-link">tip</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/" class="title">[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-03 14:14:04 &#43;0900 JST" itemprop="datePublished">2019-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/" class="title">[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-01 10:51:59 &#43;0900 JST" itemprop="datePublished">2019-11-01</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/10/movie-app-tutorial-part4/" class="title">[Flutter]iOSアプリチュートリアルPart4 - インタラクティブ</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-10-08 20:34:31 &#43;0900 JST" itemprop="datePublished">2019-10-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/09/php-empty/" class="title">[PHP]Empty関数の問題</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-09-25 06:31:41 &#43;0900 JST" itemprop="datePublished">2019-09-25</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/09/movie-app-tutorial-part3/" class="title">[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-09-10 20:34:31 &#43;0900 JST" itemprop="datePublished">2019-09-10</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside >
+
+    
+    
+<aside class="sidebar sidebar-toc " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">Table of contents</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2019/12/movie-app-tutorial-part6/"
+    >[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/" class="article-date">
+  <time datetime="2019-12-03 14:14:04 &#43;0900 JST" itemprop="datePublished">2019-12-03</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/ios/"> iOS </a>
+    <a class="article-tag-link" href="/tags/flutter/"> flutter </a>
+    <a class="article-tag-link" href="/tags/crossplatform/"> crossplatform </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2019/12/movie-app-tutorial-part6/#comments"
+            class="article-comment-link">Comments</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 1209words</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 3minutes </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p><img src="./2.gif" alt=""></p>
+<p>今回はAPIを使って、実際のMoviesデータを表示しましょう。</p>
+<blockquote>
+<p>ゴール</p>
+<ul>
+<li>Movie API</li>
+<li>ネットワーキング、RestAPI</li>
+</ul>
+</blockquote>
+<h2 id="asynchronous-future-async-await">Asynchronous: Future, async, await</h2>
+<p>非同期オペレーションを実装する為に、<code>Dart</code>は<code>Future</code>,<code>async</code>,<code>await</code>を用意しています。</p>
+<p><code>async</code>と<code>await</code>はほぼどの言語にでもあるから、言うまでもなく。でも、<code>Future</code>って何？</p>
+<h3 id="futureとは">Futureとは</h3>
+<p>JavascriptのPromiseと似ている感じでしょうか。<br>
+Futureは将来のどこかのタイミングで終わる予定のオペレーションの結果です。</p>
+<ul>
+<li>Uncompleted</li>
+<li>Completed
+<ul>
+<li>正常Completed</li>
+<li>エラーCompleted</li>
+</ul>
+</li>
+</ul>
+<p>という２状態があります。<br>
+<code>Dart</code>ホームページ <a href="https://dart.dev/codelabs/async-await">https://dart.dev/codelabs/async-await</a> に詳しく解説しますので、そちらをご参照ください</p>
+<p>次は実際画面に応用しましょう</p>
+<h2 id="movies-apiと連携">Movies APIと連携</h2>
+<h3 id="apikeyを取得">APIKeyを取得</h3>
+<p>APIの提供者：https://www.themoviedb.org/documentation/api<br>
+登録して、APIkeyを取得してください。</p>
+<h3 id="models">Models</h3>
+<p><strong>models.dart</strong></p>
+<pre><code class="language-dart">class Genre {
+  final int id;
+  final String name;
+
+  Genre({
+    this.id,
+    this.name,
+  });
+}
+
+class Movie {
+  final int id;
+  final int vote_count;
+  final double vote_average;
+  final double popularity;
+  final String title;
+  final String overview;
+  final String release_date;
+  final String poster_path;
+  final String backdrop_path;
+  final String original_language;
+  final String original_title;
+  final bool video;
+  final bool adult;
+  final List&lt;Genre&gt; genres;
+
+  Movie({
+    this.id,
+    this.title = '',
+    this.vote_average = 0,
+    this.overview = '',
+    this.release_date = '',
+    this.popularity = 0,
+    this.vote_count = 0,
+    this.video = false,
+    this.poster_path = '',
+    this.adult = false,
+    this.backdrop_path = '',
+    this.original_language = '',
+    this.original_title = '',
+    this.genres = const [],
+  });
+
+  factory Movie.fromMap(Map dict) {
+    return Movie(
+      id: dict[&quot;id&quot;],
+      vote_count: dict[&quot;vote_count&quot;],
+      vote_average: double.parse(dict[&quot;vote_average&quot;].toString()),
+      popularity: double.parse(dict[&quot;popularity&quot;].toString()),
+      title: dict[&quot;title&quot;],
+      overview: dict[&quot;overview&quot;],
+      release_date: dict[&quot;release_date&quot;],
+      video: dict[&quot;video&quot;],
+      poster_path: dict[&quot;poster_path&quot;],
+      adult: dict[&quot;adult&quot;],
+      backdrop_path: dict[&quot;backdrop_path&quot;],
+      original_language: dict[&quot;original_language&quot;],
+      original_title: dict[&quot;original_title&quot;],
+    );
+  }
+}
+</code></pre>
+<h3 id="httpパッケージ追加">HTTPパッケージ追加</h3>
+<p><strong>pubspec.yaml</strong></p>
+<pre><code class="language-yaml">dependencies:
+  http:
+</code></pre>
+<h3 id="avatarwidget">AvatarWidget</h3>
+<pre><code class="language-dart">class Avatar extends StatelessWidget {
+  final double width;
+  final double height;
+  final String url;
+
+  const Avatar({
+    Key key,
+    this.width,
+    this.height,
+    this.url,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(color: Colors.grey.shade400, blurRadius: 8, offset: Offset(1, 5), spreadRadius: 2),
+        ]
+      ),
+      child: this.url == null
+          ? Container()
+          : Image.network(
+              this.url,
+              fit: BoxFit.cover,
+            ),
+    );
+  }
+}
+</code></pre>
+<h3 id="themoviedbapi">TheMovieDbAPI</h3>
+<p>Singletonで、ネットワーキングやり取りは全部このクラスで行います。
+<code>Dart</code>の独特な実装方法で、Singletonを便利の使えます。
+<strong>services/themoviedb_api.dart</strong></p>
+<pre><code class="language-dart">class TheMovieDbAPI {
+  final String baseURL = &quot;https://api.themoviedb.org/3&quot;;
+  final String apiKey = &quot;&quot;; //  ★★★APIKeyを入れてください。
+
+  static final TheMovieDbAPI _instance = TheMovieDbAPI._internal();
+
+  factory TheMovieDbAPI() =&gt; _instance;
+
+  TheMovieDbAPI._internal();
+}
+</code></pre>
+<p>API使用する例</p>
+<pre><code class="language-dart">final apiService = TheMovieDbAPI();
+</code></pre>
+<p><strong>services/themoviedb_api.dart</strong>*</p>
+<pre><code class="language-dart">import 'dart:convert';
+
+import 'package:flutter_movies/models/models.dart';
+import 'package:http/http.dart' as http;
+
+class TheMovieDbAPI {
+  final String baseURL = &quot;https://api.themoviedb.org/3&quot;;
+  final String apiKey = &quot;&quot;; //  ★★★APIKeyを入れてください。
+
+  static final TheMovieDbAPI _instance = TheMovieDbAPI._internal();
+
+  factory TheMovieDbAPI() =&gt; _instance;
+
+  TheMovieDbAPI._internal();
+
+  Future&lt;List&lt;Movie&gt;&gt; fetchMovies(String featured) async {
+    final url = &quot;${this.baseURL}/movie/$featured?api_key=${this.apiKey}&quot;;
+    final res = await http.get(url);
+    final data = res.body;
+    final dict = json.decode(data);
+    final List arr = dict[&quot;results&quot;];
+    List&lt;Movie&gt; results = [];
+    for (final dict in arr) {
+      dict['poster_path'] = TheMovieDbImageUrl.resolveUrl(dict[&quot;poster_path&quot;], ImageSize.Small);
+      results.add(Movie.fromMap(dict));
+    }
+    return results;
+  }
+}
+
+enum ImageSize { Small, Medium, Cast, Original }
+
+class TheMovieDbImageUrl {
+  static final String small = &quot;https://image.tmdb.org/t/p/w154/&quot;;
+  static final String medium = &quot;https://image.tmdb.org/t/p/w500/&quot;;
+  static final String cast = &quot;https://image.tmdb.org/t/p/w185/&quot;;
+  static final String original = &quot;https://image.tmdb.org/t/p/original/&quot;;
+
+  static String resolveUrl(String path, ImageSize size) {
+    switch (size) {
+      case ImageSize.Small:
+        return &quot;$small$path&quot;;
+        break;
+      case ImageSize.Medium:
+        return &quot;$medium$path&quot;;
+        break;
+      case ImageSize.Cast:
+        return &quot;$cast$path&quot;;
+        break;
+      case ImageSize.Original:
+        return &quot;$original$path&quot;;
+        break;
+    }
+    return path;
+  }
+}
+</code></pre>
+<h3 id="avatarwidget-1">AvatarWidget</h3>
+<pre><code class="language-dart">class Avatar extends StatelessWidget {
+  final double width;
+  final double height;
+  final String url;
+
+  const Avatar({
+    Key key,
+    this.width,
+    this.height,
+    this.url,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(color: Colors.grey.shade400, blurRadius: 8, offset: Offset(1, 5), spreadRadius: 2),
+        ]
+      ),
+      child: this.url == null
+          ? Container()
+          : Image.network(
+              this.url,
+              fit: BoxFit.cover,
+            ),
+    );
+  }
+}
+</code></pre>
+<h3 id="homeviewmodel">HomeViewModel</h3>
+<pre><code class="language-dart">import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_movies/models/models.dart';
+import 'package:flutter_movies/services/themoviedb_api.dart';
+
+final random = Random();
+
+class HomeViewModel extends ChangeNotifier {
+  String appBarTitle = '';
+  List&lt;String&gt; menus = ['Popular', 'Top Rated', 'Upcoming', 'Now Playing'];
+  List&lt;Movie&gt; movies = [];
+  int selectedIndex = 0;
+
+  List&lt;bool&gt; get isSelected {
+    List&lt;bool&gt; results = this.menus.map&lt;bool&gt;((s) =&gt; false).toList();
+    results[this.selectedIndex] = true;
+    return results;
+  }
+
+  HomeViewModel() {
+    this.appBarTitle = this.menus[this.selectedIndex];
+  }
+
+  void changeSelectedMenu(int targetIndex) {
+    this.selectedIndex = targetIndex;
+    this.appBarTitle = this.menus[targetIndex];
+    this.notifyListeners();
+    this.fetchMovies();
+  }
+
+  void fetchMovies() async {
+    String featured = 'popular';
+    if (selectedIndex == 1) {
+      featured = &quot;top_rated&quot;;
+    } else if (selectedIndex == 2) {
+      featured = &quot;upcoming&quot;;
+    } else if (selectedIndex == 3) {
+      featured = &quot;now_playing&quot;;
+    }
+
+    final apiService = TheMovieDbAPI();
+    this.movies = await apiService.fetchMovies(featured);
+    this.notifyListeners();
+  }
+}
+</code></pre>
+<h3 id="結果">結果</h3>
+<p><img src="./1.gif" alt=""></p>
+<h2 id="まとめ">まとめ</h2>
+<ul>
+<li>httpで実際のAPIと連携</li>
+<li><code>Dart</code>のasynchronous</li>
+<li><code>Dart</code>のSingletonパータン</li>
+</ul>
+<blockquote>
+<p>詳細画面を作ってみてください。</p>
+</blockquote>
+<p>次回は</p>
+<ul>
+<li>Cache,Performance向上</li>
+<li>Dart Isolate</li>
+<li>Animation</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+    </div>
+  </article>
+<section id="comments">
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/" title="[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;Older</span></a>
+            </li>
+            
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="facebook,twitter,google,linkedin"
+                data-mobile-sites="facebook,twitter,google,linkedin"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/thanhchungbtc" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dart.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/diff.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://thanhchungbtc.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://thanhchungbtc.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            ROOT_URL: 'https:\/\/thanhchungbtc.github.io\/',
+            CONTENT_URL: 'https:\/\/thanhchungbtc.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://thanhchungbtc.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script defer>
+    var disqus_config = function () {
+        this.page.url = 'https:\/\/thanhchungbtc.github.io\/2019\/12\/movie-app-tutorial-part6\/';
+        this.page.identifier = 'https-thanhchungbtc-github-io';
+    };
+
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://' + 'https-thanhchungbtc-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+  </body>
+</html>

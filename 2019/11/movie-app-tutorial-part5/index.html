@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        [Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider - Thanh Chung Bui&#39;s Blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="ゴール Refactoring Providerの使い方 StatelessWidgetを最優先に使用する考え方 Refactoring 全てmain.dartに記述し、管理できない状態にな" />
+  <meta name="generator" content="Hugo 0.62.2 with theme pure" />
+  <title>[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider - Thanh Chung Bui&#39;s Blog</title>
+  
+  
+  <link rel="stylesheet" href="https://thanhchungbtc.github.io/css/style.min.9aaa883ebea87c2fd2d087c069cb2736c5f6cb2d52460262cad27bb9f932afc8.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/vs.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider" />
+<meta property="og:description" content="ゴール Refactoring Providerの使い方 StatelessWidgetを最優先に使用する考え方 Refactoring 全てmain.dartに記述し、管理できない状態にな" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/" />
+<meta property="article:published_time" content="2019-11-01T10:51:59+09:00" />
+<meta property="article:modified_time" content="2019-11-01T10:51:59+09:00" />
+<meta itemprop="name" content="[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider">
+<meta itemprop="description" content="ゴール Refactoring Providerの使い方 StatelessWidgetを最優先に使用する考え方 Refactoring 全てmain.dartに記述し、管理できない状態にな">
+<meta itemprop="datePublished" content="2019-11-01T10:51:59&#43;09:00" />
+<meta itemprop="dateModified" content="2019-11-01T10:51:59&#43;09:00" />
+<meta itemprop="wordCount" content="1923">
+
+
+
+<meta itemprop="keywords" content="iOS,flutter,crossplatform," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider"/>
+<meta name="twitter:description" content="ゴール Refactoring Providerの使い方 StatelessWidgetを最優先に使用する考え方 Refactoring 全てmain.dartに記述し、管理できない状態にな"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/thanhchungbtc" target="_blank">
+            <img class="img-circle img-rotate" src="https://thanhchungbtc.github.io/avatar.jpeg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">Thanh Chung Bui</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">Software developer</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Tokyo, Japan</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="Type something..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside  class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"> Tags</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/apache/" class="tag-list-link">apache</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/bom/" class="tag-list-link">bom</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/coprocess/" class="tag-list-link">coprocess</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/crossplatform/" class="tag-list-link">crossplatform</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/flutter/" class="tag-list-link">flutter</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/https/" class="tag-list-link">https</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/ios/" class="tag-list-link">ios</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/php/" class="tag-list-link">php</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/postgres/" class="tag-list-link">postgres</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/security/" class="tag-list-link">security</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/shell/" class="tag-list-link">shell</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/tip/" class="tag-list-link">tip</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/" class="title">[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-03 14:14:04 &#43;0900 JST" itemprop="datePublished">2019-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/" class="title">[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-01 10:51:59 &#43;0900 JST" itemprop="datePublished">2019-11-01</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/10/movie-app-tutorial-part4/" class="title">[Flutter]iOSアプリチュートリアルPart4 - インタラクティブ</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-10-08 20:34:31 &#43;0900 JST" itemprop="datePublished">2019-10-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/09/php-empty/" class="title">[PHP]Empty関数の問題</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-09-25 06:31:41 &#43;0900 JST" itemprop="datePublished">2019-09-25</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/09/movie-app-tutorial-part3/" class="title">[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-09-10 20:34:31 &#43;0900 JST" itemprop="datePublished">2019-09-10</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside >
+
+    
+    
+<aside class="sidebar sidebar-toc " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">Table of contents</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2019/11/movie-app-tutorial-part5/"
+    >[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/" class="article-date">
+  <time datetime="2019-11-01 10:51:59 &#43;0900 JST" itemprop="datePublished">2019-11-01</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/ios/"> iOS </a>
+    <a class="article-tag-link" href="/tags/flutter/"> flutter </a>
+    <a class="article-tag-link" href="/tags/crossplatform/"> crossplatform </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2019/11/movie-app-tutorial-part5/#comments"
+            class="article-comment-link">Comments</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 1923words</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 4minutes </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>ゴール</p>
+<ul>
+<li>Refactoring</li>
+<li><strong>Provider</strong>の使い方</li>
+<li><strong>StatelessWidget</strong>を最優先に使用する考え方</li>
+</ul>
+</blockquote>
+<h2 id="refactoring">Refactoring</h2>
+<p>全て<code>main.dart</code>に記述し、管理できない状態になったので、ファイル別に分けてRefactoringしよう。</p>
+<ul>
+<li>
+<p>各画面をファイルそれぞれに分ける<br>
+<img src="./1.png" alt=""></p>
+</li>
+<li>
+<p>コンポーネント化<br>
+カスタマイズWidgetで、画面部分的にWidgetを作る。</p>
+</li>
+</ul>
+<h3 id="homepage">HomePage</h3>
+<ul>
+<li><strong>_ToggleButtons</strong>：現在選択中インデックスを保ちたいので、<strong>StatefulWidget</strong></li>
+<li><strong>_MovieList</strong>: Movie一覧</li>
+</ul>
+<pre><code class="language-dart">class _HomePageState extends State&lt;HomePage&gt; {
+  List&lt;String&gt; _menus = ['Popular', 'Top Rated', 'Upcoming', 'Now Playing'];
+  List&lt;Movie&gt; _movies = [];
+  String _title = '';
+
+  final _scrollController = ScrollController();
+  final random = Random();
+
+  @override
+  void initState() {
+    super.initState();
+    // 最初のアイテムを「選択中」に設定
+    this._title = this._menus[0];
+
+    this.fetchMovies();
+  }
+
+  void fetchMovies() {
+    this._movies = List.generate(
+      random.nextInt(30) + 10,
+      (index) =&gt; Movie(
+        title: &quot;Title ${index + 1}&quot;,
+        release_date: &quot;2019-01-01&quot;,
+        overview: &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temportempor&quot;,
+      ),
+    );
+    if (this._scrollController.hasClients) {
+      this._scrollController.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(this._title),
+        actions: &lt;Widget&gt;[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(
+                context,
+                NoAnimationRoute(
+                  builder: (context) =&gt; SearchPage(),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+      body: Column(
+        children: &lt;Widget&gt;[
+          _ToggleButtons(
+            menus: this._menus,
+            onSelectedIndexChanged: (index) {
+              setState(() {
+                this.fetchMovies();
+                this._title = this._menus[index];
+              });
+            },
+          ),
+          _MovieList(
+            scrollController: _scrollController,
+            movies: _movies,
+          ),
+        ],
+      ),
+    );
+  }
+}
+</code></pre>
+<ul>
+<li><strong>_ToggleButtons</strong></li>
+</ul>
+<pre><code class="language-dart">class _ToggleButtons extends StatefulWidget {
+  final List&lt;String&gt; menus;
+  final void Function(int) onSelectedIndexChanged;
+
+  const _ToggleButtons({
+    Key key,
+    @required this.menus,
+    @required this.onSelectedIndexChanged,
+  }) : super(key: key);
+
+  @override
+  __ToggleButtonsState createState() =&gt; __ToggleButtonsState();
+}
+
+class __ToggleButtonsState extends State&lt;_ToggleButtons&gt; {
+  List&lt;bool&gt; _isSelected = [];
+  List&lt;Movie&gt; _movies = [];
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    this.resembleMenuState();
+  }
+
+  @override
+  void didUpdateWidget(_ToggleButtons oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    this.resembleMenuState();
+  }
+
+  void resembleMenuState() {
+    this._isSelected = this.widget.menus.map&lt;bool&gt;((s) =&gt; false).toList();
+    this._isSelected[this._selectedIndex] = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: ToggleButtons(
+        children: this.widget.menus.map&lt;Widget&gt;((s) =&gt; Text(s)).toList(),
+        onPressed: (index) {
+          setState(() {
+            this._selectedIndex = index;
+            this.resembleMenuState();
+            this.widget.onSelectedIndexChanged(index);
+          });
+        },
+        isSelected: this._isSelected,
+      ),
+    );
+  }
+}
+</code></pre>
+<ul>
+<li><strong>_MovieList</strong></li>
+</ul>
+<pre><code class="language-dart">class _MovieList extends StatelessWidget {
+  const _MovieList({
+    Key key,
+    @required ScrollController scrollController,
+    @required List&lt;Movie&gt; movies,
+  })  : _scrollController = scrollController,
+        _movies = movies,
+        super(key: key);
+
+  final ScrollController _scrollController;
+  final List&lt;Movie&gt; _movies;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.separated(
+        controller: this._scrollController,
+        itemBuilder: (context, index) {
+          final movie = this._movies[index];
+          return ListTile(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =&gt; MovieDetailPage()));
+            },
+            title: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: &lt;Widget&gt;[
+                  Avatar(width: 90, height: 120),
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: &lt;Widget&gt;[
+                        Text(movie.title),
+                        Text(movie.release_date),
+                        Text(movie.overview),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) =&gt; Divider(height: 1),
+        itemCount: this._movies.length,
+      ),
+    );
+  }
+}
+</code></pre>
+<h3 id="moviedetailpage">MovieDetailPage</h3>
+<h3 id="personpage">PersonPage</h3>
+<h2 id="provider">Provider</h2>
+<h3 id="providerは何">Providerは何？</h3>
+<p>State managementのパッケージで、以下の昨日が整備される</p>
+<ul>
+<li>InheritedWidgetのsyntactic sugar</li>
+<li>下位、上位とシブリングWidgetのデータフロー安易にできる</li>
+<li>DI</li>
+<li>基本的に<strong>StatelessWidget</strong>を使用し、メンテしやすいアプリを実現する</li>
+</ul>
+<h3 id="インストール">インストール</h3>
+<ul>
+<li><strong>pubspec.yaml</strong></li>
+</ul>
+<pre><code class="language-yaml">dependencies:
+  # 追加
+  provider:
+</code></pre>
+<h3 id="アイデア">アイデア</h3>
+<ul>
+<li>上位Widgetは<code>Provider</code>と呼ばれ、下位に共有データを宣言する</li>
+<li>下位Widgetは<code>Consumer</code>と呼ばれ、どのレベルにあっても、上位Widgetのデータを取得ができる</li>
+<li><strong>Provider.of&lt;type&gt;</strong>は自動に現在のWidgetを起点に<code>type</code>とマッチする最初のデータを取得する。</li>
+</ul>
+<pre><code class="language-dart">class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Provider&lt;String&gt;.value(value: &quot;Thanh Chung&quot;, child: GreetingWidget());
+  }
+}
+
+class GreetingWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer&lt;String&gt;(
+      builder: (context, value, child) {
+        return Text(&quot;Hello $value&quot;);
+      },
+    );
+    // 下記の書き方は同じ。短くて、便利だね
+    // final value = Provider.of&lt;String&gt;(context);
+    // return Text(&quot;Hello $value&quot;);
+  }
+}
+</code></pre>
+<h3 id="changenotifier">ChangeNotifier</h3>
+<p>データが変更するに当たって通知機能をもつクラス</p>
+<h3 id="mvvmパータン">MVVMパータン</h3>
+<p>Flutterでよく採用されるパターン</p>
+<ul>
+<li><strong>M</strong>: Model
+アプリモデル</li>
+<li><strong>V</strong>: View
+Widgetを指す。基本的に<strong>StatelessWidget</strong>を使用する</li>
+<li><strong>VM</strong>: ViewModel
+Widgetの表示データ、アクション等</li>
+</ul>
+<h3 id="statelesswidgetを使うべき">StatelessWidgetを使うべき</h3>
+<ul>
+<li>状態が変更できない為、上位の<code>Provider</code>としてStatefulWidgetを配置</li>
+<li><code>Consumer</code>パターンでStatelessWidgetを作る</li>
+</ul>
+<p><strong>BaseWidget</strong></p>
+<pre><code class="language-dart">class BaseWidget&lt;T extends ChangeNotifier&gt; extends StatefulWidget {
+  final Widget Function(BuildContext context, T model, Widget child) builder;
+  final T model;
+  final Widget child;
+  final Function(T) onModelReady;
+
+  BaseWidget({
+    Key key,
+    this.builder,
+    this.model,
+    this.child,
+    this.onModelReady,
+  }) : super(key: key);
+
+  _BaseWidgetState&lt;T&gt; createState() =&gt; _BaseWidgetState&lt;T&gt;();
+}
+
+class _BaseWidgetState&lt;T extends ChangeNotifier&gt; extends State&lt;BaseWidget&lt;T&gt;&gt; {
+  T model;
+
+  @override
+  void initState() {
+    model = widget.model;
+
+    if (widget.onModelReady != null) {
+      widget.onModelReady(model);
+    }
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider&lt;T&gt;(
+      builder: (context) =&gt; model,
+      child: Consumer&lt;T&gt;(
+        builder: widget.builder,
+        child: widget.child,
+      ),
+    );
+  }
+}
+</code></pre>
+<h3 id="homeviewmodel">HomeViewModel</h3>
+<p><strong>view_models/home_vm.dart</strong></p>
+<pre><code class="language-dart">import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_movies/models/models.dart';
+
+final random = Random();
+
+class HomeViewModel extends ChangeNotifier {
+  String appBarTitle = '';
+  List&lt;String&gt; menus = ['Popular', 'Top Rated', 'Upcoming', 'Now Playing'];
+  List&lt;Movie&gt; movies = [];
+  int selectedIndex = 0;
+
+  List&lt;bool&gt; get isSelected {
+    List&lt;bool&gt; results = this.menus.map&lt;bool&gt;((s) =&gt; false).toList();
+    results[this.selectedIndex] = true;
+    return results;
+  }
+
+  HomeViewModel() {
+    this.appBarTitle = this.menus[this.selectedIndex];
+  }
+
+  void changeSelectedMenu(int targetIndex) {
+    this.selectedIndex = targetIndex;
+    this.appBarTitle = this.menus[targetIndex];
+    this.notifyListeners();
+  }
+
+  void fetchMovies() async {
+    this.movies = [];
+    this.notifyListeners();
+    await Future.delayed(Duration(milliseconds: 300));
+
+    this.movies = List.generate(
+      random.nextInt(30) + 10,
+      (index) =&gt; Movie(
+        title: &quot;Title ${index + 1}&quot;,
+        release_date: &quot;2019-01-01&quot;,
+        overview: &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temportempor&quot;,
+      ),
+    );
+    this.notifyListeners();
+  }
+}
+</code></pre>
+<h3 id="stateless-homepage">Stateless HomePage</h3>
+<ul>
+<li><strong>BaseWidget</strong>を使って、<strong>HomePage</strong>を<strong>StatelessWidget</strong>に</li>
+<li>bodyは引数必要なく、非常に分かりやすくなったね。
+** home_page.dart**</li>
+</ul>
+<pre><code class="language-dart">class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BaseWidget&lt;HomeViewModel&gt;(
+      model: HomeViewModel(),
+      onModelReady: (vm) {
+        vm.fetchMovies();
+      },
+      builder: (context, vm, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(vm.appBarTitle),
+            actions: &lt;Widget&gt;[
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  Navigator.push(context, NoAnimationRoute(builder: (context) =&gt; SearchPage()));
+                },
+              )
+            ],
+          ),
+          body: Column(
+            children: &lt;Widget&gt;[
+              // 引数はなくなった
+              _ToggleButtons(),
+              _MovieList(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+</code></pre>
+<p><strong>_ToggleButtons, _MovieList</strong></p>
+<pre><code class="language-dart">class _ToggleButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of&lt;HomeViewModel&gt;(context);
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: ToggleButtons(
+        children: vm.menus.map&lt;Widget&gt;((s) =&gt; Text(s)).toList(),
+        onPressed: (index) {
+          vm.changeSelectedMenu(index);
+        },
+        isSelected: vm.isSelected,
+      ),
+    );
+  }
+}
+
+class _MovieList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of&lt;HomeViewModel&gt;(context);
+    return Expanded(
+      child: ListView.separated(
+        itemBuilder: (context, index) {
+          final movie = vm.movies[index];
+          return ListTile(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =&gt; MovieDetailPage()));
+            },
+            title: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: &lt;Widget&gt;[
+                  Avatar(width: 90, height: 120),
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: &lt;Widget&gt;[
+                        Text(movie.title),
+                        Text(movie.release_date),
+                        Text(movie.overview),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) =&gt; Divider(height: 1),
+        itemCount: vm.movies.length,
+      ),
+    );
+  }
+}
+</code></pre>
+<ul>
+<li>WidgetはUIの役割だけに簡潔になった</li>
+<li>処理は全て<strong>ViewModel</strong>で行う。</li>
+</ul>
+<p>これで、Widgetに触れなくても処理改修ができるので、scalabilityは向上したね。</p>
+<h2 id="残画面">残画面</h2>
+<h3 id="moviedetailpage-1">MovieDetailPage</h3>
+<p><strong>Refactoring</strong></p>
+<pre><code class="language-dart">class MovieDetailPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: &lt;Widget&gt;[
+          SliverAppBar(
+            expandedHeight: 180,
+            pinned: true,
+            elevation: 0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(&quot;Joker&quot;),
+              background: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(color: Colors.blue),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                _Poster(),
+                divider,
+                Reviews(),
+                divider,
+                _Overview(),
+                divider,
+                _Credit(),
+                divider,
+                _Credit(),
+                divider,
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+</code></pre>
+<p>各Componentsを作ってみてください。</p>
+<h2 id="まとめ">まとめ</h2>
+<ul>
+<li>MVVMパータンベースでRefactoringを紹介した。</li>
+<li>Providerを使って、拡張性が良い状態管理を実装した。
+次回はMoviesのAPIを使って、ネットワークのデータを撮りに行って、生々しいアプリを作ろう。</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+    </div>
+  </article>
+<section id="comments">
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://thanhchungbtc.github.io/2019/10/movie-app-tutorial-part4/" title="[Flutter]iOSアプリチュートリアルPart4 - インタラクティブ"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;Older</span></a>
+            </li>
+            <li class="next">
+                <a href="https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/"
+                    title="[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API"><span>Newer&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="facebook,twitter,google,linkedin"
+                data-mobile-sites="facebook,twitter,google,linkedin"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/thanhchungbtc" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dart.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/diff.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://thanhchungbtc.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://thanhchungbtc.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            ROOT_URL: 'https:\/\/thanhchungbtc.github.io\/',
+            CONTENT_URL: 'https:\/\/thanhchungbtc.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://thanhchungbtc.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script defer>
+    var disqus_config = function () {
+        this.page.url = 'https:\/\/thanhchungbtc.github.io\/2019\/11\/movie-app-tutorial-part5\/';
+        this.page.identifier = 'https-thanhchungbtc-github-io';
+    };
+
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://' + 'https-thanhchungbtc-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+  </body>
+</html>

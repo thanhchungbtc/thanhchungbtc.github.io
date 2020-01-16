@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        [Security]HTTP Security Headers - Thanh Chung Bui&#39;s Blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="X-XSS-Protection 概要 X-XSS-Protection: 0; X-XSS-Protection: 1; X-XSS-Protection: 1; mode=block 設定方法 X-XSS-Protection: 1; mode=block 理由はこちらご覧ください platform どう設定するの Rails4,5 設定不要。(デフォルト有効） Django SECURE_BROWSER_XSS_FILTER = True Express.js Helmet Go unrolled/secure Nginx add_header: X-XSS-Protection “1; mode" />
+  <meta name="generator" content="Hugo 0.62.2 with theme pure" />
+  <title>[Security]HTTP Security Headers - Thanh Chung Bui&#39;s Blog</title>
+  
+  
+  <link rel="stylesheet" href="https://thanhchungbtc.github.io/css/style.min.9aaa883ebea87c2fd2d087c069cb2736c5f6cb2d52460262cad27bb9f932afc8.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/vs.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="[Security]HTTP Security Headers" />
+<meta property="og:description" content="X-XSS-Protection 概要 X-XSS-Protection: 0; X-XSS-Protection: 1; X-XSS-Protection: 1; mode=block 設定方法 X-XSS-Protection: 1; mode=block 理由はこちらご覧ください platform どう設定するの Rails4,5 設定不要。(デフォルト有効） Django SECURE_BROWSER_XSS_FILTER = True Express.js Helmet Go unrolled/secure Nginx add_header: X-XSS-Protection “1; mode" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thanhchungbtc.github.io/2017/10/apache-security-header/" />
+<meta property="article:published_time" content="2017-10-13T20:02:05+09:00" />
+<meta property="article:modified_time" content="2017-10-13T20:02:05+09:00" />
+<meta itemprop="name" content="[Security]HTTP Security Headers">
+<meta itemprop="description" content="X-XSS-Protection 概要 X-XSS-Protection: 0; X-XSS-Protection: 1; X-XSS-Protection: 1; mode=block 設定方法 X-XSS-Protection: 1; mode=block 理由はこちらご覧ください platform どう設定するの Rails4,5 設定不要。(デフォルト有効） Django SECURE_BROWSER_XSS_FILTER = True Express.js Helmet Go unrolled/secure Nginx add_header: X-XSS-Protection “1; mode">
+<meta itemprop="datePublished" content="2017-10-13T20:02:05&#43;09:00" />
+<meta itemprop="dateModified" content="2017-10-13T20:02:05&#43;09:00" />
+<meta itemprop="wordCount" content="768">
+
+
+
+<meta itemprop="keywords" content="security,apache," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Security]HTTP Security Headers"/>
+<meta name="twitter:description" content="X-XSS-Protection 概要 X-XSS-Protection: 0; X-XSS-Protection: 1; X-XSS-Protection: 1; mode=block 設定方法 X-XSS-Protection: 1; mode=block 理由はこちらご覧ください platform どう設定するの Rails4,5 設定不要。(デフォルト有効） Django SECURE_BROWSER_XSS_FILTER = True Express.js Helmet Go unrolled/secure Nginx add_header: X-XSS-Protection “1; mode"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/thanhchungbtc" target="_blank">
+            <img class="img-circle img-rotate" src="https://thanhchungbtc.github.io/avatar.jpeg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">Thanh Chung Bui</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">Software developer</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Tokyo, Japan</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="Type something..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside  class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"> Tags</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/apache/" class="tag-list-link">apache</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/bom/" class="tag-list-link">bom</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/coprocess/" class="tag-list-link">coprocess</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/crossplatform/" class="tag-list-link">crossplatform</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/flutter/" class="tag-list-link">flutter</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/https/" class="tag-list-link">https</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/ios/" class="tag-list-link">ios</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/php/" class="tag-list-link">php</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/postgres/" class="tag-list-link">postgres</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/security/" class="tag-list-link">security</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/shell/" class="tag-list-link">shell</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/tip/" class="tag-list-link">tip</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/" class="title">[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-03 14:14:04 &#43;0900 JST" itemprop="datePublished">2019-12-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/" class="title">[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-01 10:51:59 &#43;0900 JST" itemprop="datePublished">2019-11-01</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/10/movie-app-tutorial-part4/" class="title">[Flutter]iOSアプリチュートリアルPart4 - インタラクティブ</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-10-08 20:34:31 &#43;0900 JST" itemprop="datePublished">2019-10-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/09/php-empty/" class="title">[PHP]Empty関数の問題</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-09-25 06:31:41 &#43;0900 JST" itemprop="datePublished">2019-09-25</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://thanhchungbtc.github.io/2019/09/movie-app-tutorial-part3/" class="title">[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-09-10 20:34:31 &#43;0900 JST" itemprop="datePublished">2019-09-10</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside >
+
+    
+    
+<aside class="sidebar sidebar-toc " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">Table of contents</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2017/10/apache-security-header/"
+    >[Security]HTTP Security Headers</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://thanhchungbtc.github.io/2017/10/apache-security-header/" class="article-date">
+  <time datetime="2017-10-13 20:02:05 &#43;0900 JST" itemprop="datePublished">2017-10-13</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/security/"> security </a>
+    <a class="article-tag-link" href="/tags/apache/"> apache </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2017/10/apache-security-header/#comments"
+            class="article-comment-link">Comments</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 768words</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 2minutes </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="x-xss-protection">X-XSS-Protection</h2>
+<h3 id="概要">概要</h3>
+<pre><code class="language-sh">X-XSS-Protection: 0; 
+X-XSS-Protection: 1; 
+X-XSS-Protection: 1; mode=block
+</code></pre>
+<h3 id="設定方法">設定方法</h3>
+<pre><code class="language-sh">X-XSS-Protection: 1; mode=block
+</code></pre>
+<ul>
+<li>理由は<a href="https://blog.innerht.ml/the-misunderstood-x-xss-protection/">こちら</a>ご覧ください</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">platform</th>
+<th align="left">どう設定するの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Rails4,5</td>
+<td align="left">設定不要。(デフォルト有効）</td>
+</tr>
+<tr>
+<td align="left">Django</td>
+<td align="left">SECURE_BROWSER_XSS_FILTER = True</td>
+</tr>
+<tr>
+<td align="left">Express.js</td>
+<td align="left">Helmet</td>
+</tr>
+<tr>
+<td align="left">Go</td>
+<td align="left">unrolled/secure</td>
+</tr>
+<tr>
+<td align="left">Nginx</td>
+<td align="left">add_header: X-XSS-Protection “1; mode=block”;</td>
+</tr>
+<tr>
+<td align="left">Apache</td>
+<td align="left">Header always set X-XSS-Protection “1; mode=block”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="content-security-policy-csp">Content Security Policy (CSP)</h2>
+<h3 id="概要-1">概要</h3>
+<pre><code class="language-sh">Content-Security-Policy: &lt;policy&gt;
+</code></pre>
+<h3 id="設定方法-1">設定方法</h3>
+<table>
+<thead>
+<tr>
+<th align="left">platform</th>
+<th align="left">どう設定するの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Rails4,5</td>
+<td align="left">secureheaders</td>
+</tr>
+<tr>
+<td align="left">Django</td>
+<td align="left">django-csp</td>
+</tr>
+<tr>
+<td align="left">Express.js</td>
+<td align="left">helmet/csp</td>
+</tr>
+<tr>
+<td align="left">Go</td>
+<td align="left">unrolled/secure</td>
+</tr>
+<tr>
+<td align="left">Nginx</td>
+<td align="left">add_header Content-Security-Policy “<!-- raw HTML omitted -->”;</td>
+</tr>
+<tr>
+<td align="left">Apache</td>
+<td align="left">Header always set Content-Security-Policy “<!-- raw HTML omitted -->”</td>
+</tr>
+</tbody>
+</table>
+<p>参照：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy</a></li>
+<li><a href="https://csp.withgoogle.com/docs/adopting-csp.html">https://csp.withgoogle.com/docs/adopting-csp.html</a></li>
+</ul>
+<h2 id="http-strict-transport-security-hsts">HTTP Strict Transport Security (HSTS)</h2>
+<h3 id="概要-2">概要</h3>
+<pre><code class="language-sh">Strict-Transport-Security: max-age=&lt;expire-time&gt;
+Strict-Transport-Security: max-age=&lt;expire-time&gt;; includeSubDomains
+Strict-Transport-Security: max-age=&lt;expire-time&gt;; preload
+</code></pre>
+<h3 id="設定方法-2">設定方法</h3>
+<table>
+<thead>
+<tr>
+<th align="left">platform</th>
+<th align="left">どう設定するの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Rails 4</td>
+<td align="left">config.force_ssl = true; config.ssl_options = { hsts: { subdomains: true } }</td>
+</tr>
+<tr>
+<td align="left">Rails 5</td>
+<td align="left">config.force_ssl = true</td>
+</tr>
+<tr>
+<td align="left">Django</td>
+<td align="left">SECURE_HSTS_SECONDS = 31536000; SECURE_HSTS_INCLUDE_SUBDOMAINS = True</td>
+</tr>
+<tr>
+<td align="left">Express.js</td>
+<td align="left">helmet</td>
+</tr>
+<tr>
+<td align="left">Go</td>
+<td align="left">unrolled/secure</td>
+</tr>
+<tr>
+<td align="left">Nginx</td>
+<td align="left">add_header Strict-Transport-Security “max-age=31536000; includeSubdomains; “;</td>
+</tr>
+<tr>
+<td align="left">Apache</td>
+<td align="left">Header always set Strict-Transport-Security “max-age=31536000; includeSubdomains;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="http-public-key-pinning-hpkp">HTTP Public Key Pinning (HPKP)</h2>
+<h3 id="概要-3">概要</h3>
+<pre><code class="language-sh">Public-Key-Pins: pin-sha256=&lt;base64==&gt;; max-age=&lt;expireTime&gt;;
+Public-Key-Pins: pin-sha256=&lt;base64==&gt;; max-age=&lt;expireTime&gt;; includeSubDomains
+Public-Key-Pins: pin-sha256=&lt;base64==&gt;; max-age=&lt;expireTime&gt;; report-uri=&lt;reportURI&gt;
+</code></pre>
+<h3 id="設定方法-3">設定方法</h3>
+<p>設定を推奨しない
+参照：https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead</p>
+<h2 id="x-frame-options">X-Frame-Options</h2>
+<h3 id="概要-4">概要</h3>
+<pre><code class="language-sh">X-Frame-Options: DENY
+X-Frame-Options: SAMEORIGIN
+X-Frame-Options: ALLOW-FROM https://example.com/
+</code></pre>
+<h3 id="設定方法-4">設定方法</h3>
+<table>
+<thead>
+<tr>
+<th align="left">platform</th>
+<th align="left">どう設定するの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Rails4,5</td>
+<td align="left">config.action_dispatch.default_headers[‘X-Frame-Options’] = “DENY”</td>
+</tr>
+<tr>
+<td align="left">Django</td>
+<td align="left">X_FRAME_OPTIONS = ‘DENY’</td>
+</tr>
+<tr>
+<td align="left">Express.js</td>
+<td align="left">helmet</td>
+</tr>
+<tr>
+<td align="left">Go</td>
+<td align="left">unrolled/secure</td>
+</tr>
+<tr>
+<td align="left">Nginx</td>
+<td align="left">add_header X-Frame-Options “deny”;</td>
+</tr>
+<tr>
+<td align="left">Apache</td>
+<td align="left">Header always set X-Frame-Options “deny”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="x-content-type-options">X-Content-Type-Options</h2>
+<h3 id="概要-5">概要</h3>
+<pre><code class="language-sh">X-Content-Type-Options: nosniff;
+</code></pre>
+<p><strong>MIME sniffing</strong>を防ぐヘッダ</p>
+<h3 id="設定方法-5">設定方法</h3>
+<table>
+<thead>
+<tr>
+<th align="left">platform</th>
+<th align="left">どう設定するの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Rails4,5</td>
+<td align="left">デフォルト有効</td>
+</tr>
+<tr>
+<td align="left">Django</td>
+<td align="left">SECURE_CONTENT_TYPE_NOSNIFF = True</td>
+</tr>
+<tr>
+<td align="left">Express.js</td>
+<td align="left">helmet</td>
+</tr>
+<tr>
+<td align="left">Go</td>
+<td align="left">unrolled/secure</td>
+</tr>
+<tr>
+<td align="left">Nginx</td>
+<td align="left">add_header X-Content-Type-Options nosniff;</td>
+</tr>
+<tr>
+<td align="left">Apache</td>
+<td align="left">Header always set X-Content-Type-Options nosniff</td>
+</tr>
+</tbody>
+</table>
+<h2 id="referrer-policy">Referrer-Policy</h2>
+<h3 id="概要-6">概要</h3>
+<pre><code class="language-sh">Referrer-Policy: &quot;no-referrer&quot;
+Referrer-Policy: &quot;no-referrer-when-downgrade&quot;
+Referrer-Policy: &quot;origin&quot;
+Referrer-Policy: &quot;origin-when-cross-origin&quot;
+Referrer-Policy: &quot;same-origin&quot;
+Referrer-Policy: &quot;strict-origin&quot;
+Referrer-Policy: &quot;strict-origin-when-cross-origin&quot;
+Referrer-Policy: &quot;unsafe-url&quot;
+</code></pre>
+<h3 id="設定方法-6">設定方法</h3>
+<table>
+<thead>
+<tr>
+<th align="left">platform</th>
+<th align="left">どう設定するの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Rails4,5</td>
+<td align="left">secureheaders</td>
+</tr>
+<tr>
+<td align="left">Django</td>
+<td align="left">Custom middleware</td>
+</tr>
+<tr>
+<td align="left">Express.js</td>
+<td align="left">helmet</td>
+</tr>
+<tr>
+<td align="left">Go</td>
+<td align="left">Custom middleware</td>
+</tr>
+<tr>
+<td align="left">Nginx</td>
+<td align="left">add_header Referrer-Policy “no-referrer”;</td>
+</tr>
+<tr>
+<td align="left">Apache</td>
+<td align="left">Header always set Referrer-Policy “no-referrer”</td>
+</tr>
+</tbody>
+</table>
+<p>参照：https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy</p>
+<p>参照：https://techtalk.vn/tat-ca-nhung-thu-ban-can-biet-ve-http-security-headers.html</p>
+
+    </div>
+    <div class="article-footer">
+    </div>
+  </article>
+<section id="comments">
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://thanhchungbtc.github.io/2017/08/shell-postgres-transaction-control/" title="[Shell]Shellで複雑なトランザクション制御方法"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;Older</span></a>
+            </li>
+            <li class="next">
+                <a href="https://thanhchungbtc.github.io/2017/10/https-basic-memo/"
+                    title="Https Basic Memo"><span>Newer&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="facebook,twitter,google,linkedin"
+                data-mobile-sites="facebook,twitter,google,linkedin"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/thanhchungbtc" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dart.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/diff.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://thanhchungbtc.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://thanhchungbtc.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            ROOT_URL: 'https:\/\/thanhchungbtc.github.io\/',
+            CONTENT_URL: 'https:\/\/thanhchungbtc.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://thanhchungbtc.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script defer>
+    var disqus_config = function () {
+        this.page.url = 'https:\/\/thanhchungbtc.github.io\/2017\/10\/apache-security-header\/';
+        this.page.identifier = 'https-thanhchungbtc-github-io';
+    };
+
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://' + 'https-thanhchungbtc-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>coprocess on Thanh Chung Bui&#39;s Blog</title>
+    <link>https://thanhchungbtc.github.io/tags/coprocess/</link>
+    <description>Recent content in coprocess on Thanh Chung Bui&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 03 Aug 2017 08:46:25 +0900</lastBuildDate>
+    
+        <atom:link href="https://thanhchungbtc.github.io/tags/coprocess/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Flutter]iOSアプリチュートリアルPart6 - Networking: Movie Rest API</title>
+      <link>https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/</link>
+      <pubDate>Tue, 03 Dec 2019 14:14:04 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/12/movie-app-tutorial-part6/</guid>
+      <description>今回はAPIを使って、実際のMoviesデータを表示しましょう。 ゴール Movie API ネットワーキング、RestAPI Asynchronous: Future, async, await 非同期オペレーションを実装</description>
+    </item>
+    
+    <item>
+      <title>[Flutter]iOSアプリチュートリアルPart5 - MVVM, Refactoring, Provider</title>
+      <link>https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/</link>
+      <pubDate>Fri, 01 Nov 2019 10:51:59 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/11/movie-app-tutorial-part5/</guid>
+      <description>ゴール Refactoring Providerの使い方 StatelessWidgetを最優先に使用する考え方 Refactoring 全てmain.dartに記述し、管理できない状態にな</description>
+    </item>
+    
+    <item>
+      <title>[Flutter]iOSアプリチュートリアルPart4 - インタラクティブ</title>
+      <link>https://thanhchungbtc.github.io/2019/10/movie-app-tutorial-part4/</link>
+      <pubDate>Tue, 08 Oct 2019 20:34:31 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/10/movie-app-tutorial-part4/</guid>
+      <description>今回は画面のインタラクションや状態管理を追加します。 ゴール StatelessWidgetvsStatefulWidget理解 Stateful</description>
+    </item>
+    
+    <item>
+      <title>[PHP]Empty関数の問題</title>
+      <link>https://thanhchungbtc.github.io/2019/09/php-empty/</link>
+      <pubDate>Wed, 25 Sep 2019 06:31:41 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/09/php-empty/</guid>
+      <description>if (empty($someVar)) { // do something } こんなのコードを書いたことがありますか。 Objectはnullかどうか、文字列の場合は&amp;quot;&amp;quot;かどうか、数値は</description>
+    </item>
+    
+    <item>
+      <title>[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget</title>
+      <link>https://thanhchungbtc.github.io/2019/09/movie-app-tutorial-part3/</link>
+      <pubDate>Tue, 10 Sep 2019 20:34:31 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/09/movie-app-tutorial-part3/</guid>
+      <description>ゴール Navigatorで画面遷移 Routeをカスタマイズ Widgetの構成の応用 Part2では基本的なWidgetを学習し、ホーム画面を作</description>
+    </item>
+    
+    <item>
+      <title>[Flutter]iOSアプリチュートリアルPart2 - 基本Widget</title>
+      <link>https://thanhchungbtc.github.io/2019/08/movie-app-tutorial-part2/</link>
+      <pubDate>Wed, 21 Aug 2019 18:19:12 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/08/movie-app-tutorial-part2/</guid>
+      <description>前回はFlutterについて紹介とアプリのWireframeを作りました。 これから、コードを手がけましょう。 ゴール 基本のWidgetを理解 レ</description>
+    </item>
+    
+    <item>
+      <title>[Flutter]iOSアプリチュートリアルPart1 - 始めに</title>
+      <link>https://thanhchungbtc.github.io/2019/08/movie-app-tutorial-part1/</link>
+      <pubDate>Thu, 01 Aug 2019 16:17:07 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/08/movie-app-tutorial-part1/</guid>
+      <description>Flutterでモバイルアプリを作ってよう モバイルアプリってAndroid=Java, iOS=Swiftのメインですね。 ただ、各OSの対応バ</description>
+    </item>
+    
+    <item>
+      <title>基本情報技術者試験を合格してきた</title>
+      <link>https://thanhchungbtc.github.io/2019/05/passed-fe-shiken/</link>
+      <pubDate>Sat, 25 May 2019 21:36:52 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/05/passed-fe-shiken/</guid>
+      <description>ちょっとした感想を残しておきます。 きっかけ 部門の飲み会でこの試験の話が出て、結構チャレンジした人が多いので、自分もやってみようと思った。 受験</description>
+    </item>
+    
+    <item>
+      <title>Kinh nghiệm làm thủ tục gửi trẻ đi học nhà trẻ</title>
+      <link>https://thanhchungbtc.github.io/2019/03/thu-tuc-gui-tre/</link>
+      <pubDate>Wed, 20 Mar 2019 22:28:04 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2019/03/thu-tuc-gui-tre/</guid>
+      <description>Việc gửi trẻ ở Nhật không giống với Việt Nam là thích gửi đâu cũng được, mà trước tiên bạn p</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://thanhchungbtc.github.io/about/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/about/</guid>
+      <description>Hello, My name is Chung. I am a developer based in Tokyo, Japan. I do Web and iOS development sometimes. I love learning new technologies and meet new people. In this blog, I want to share my knowledge of programming as well as the experiences while living in Japan. The content is mainly in Japanese because I am learning Japanese, too. I think it is an excellent opportunity to output</description>
+    </item>
+    
+    <item>
+      <title>Thủ tục visa thăm thân - bảo lãnh Bố Mẹ sang Nhật chơi</title>
+      <link>https://thanhchungbtc.github.io/2018/12/thu-tuc-moi-gia-dinh-sang-nhat-choi/</link>
+      <pubDate>Sat, 15 Dec 2018 23:08:26 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2018/12/thu-tuc-moi-gia-dinh-sang-nhat-choi/</guid>
+      <description>Tham khảo https://www.vn.emb-japan.go.jp/itpr_ja/VN_SVisaFAM.html Người xin visa Hộ chiếu -&amp;gt; Bản gốc Tờ khai visa (có dán ảnh) -&amp;gt; 1 bản gốc https://www.vn.emb-japan.go.jp/itpr_ja/VN_SVisaFAM.html Tài liệu chứng minh quan hệ họ hà</description>
+    </item>
+    
+    <item>
+      <title>Anchor Phishing</title>
+      <link>https://thanhchungbtc.github.io/2018/08/anchor-phishing/</link>
+      <pubDate>Sat, 18 Aug 2018 05:30:10 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2018/08/anchor-phishing/</guid>
+      <description>バーナーとかで他サイトと連携することが普通だが、無害と考えているのに、不注意すると脆弱性がでてくることはご存じですか。 意外と見逃しがちの攻撃</description>
+    </item>
+    
+    <item>
+      <title>開発マシンのTips</title>
+      <link>https://thanhchungbtc.github.io/2018/06/mac-dev-tips/</link>
+      <pubDate>Sat, 23 Jun 2018 21:23:22 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2018/06/mac-dev-tips/</guid>
+      <description>よく使われるコマンドをAliasに ~/.zshrc or ~/.bash_profile or whatever you use # append this line to the bottom source ~/.aliases ~/.aliases alias gs=&amp;quot;git status&amp;quot; alias gl=&amp;quot;git log&amp;quot; alias gaa=&amp;quot;git add .&amp;quot; alias gc=&amp;quot;git commit -m &amp;quot; alias gclean=&amp;quot;git reset --hard &amp;amp;&amp;amp; clean -df&amp;quot; alias projects=&amp;quot;cd /Volumes/Data/projects &amp;quot; alias p=&amp;quot;phpunit &amp;quot; alias pf=&amp;quot;phpunit --filter &amp;quot; source ~/.aliases こ</description>
+    </item>
+    
+    <item>
+      <title>[Docker]メモ</title>
+      <link>https://thanhchungbtc.github.io/2018/05/docker-memo/</link>
+      <pubDate>Tue, 01 May 2018 07:29:03 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2018/05/docker-memo/</guid>
+      <description>Docker上開発環境を構築してみた Stack: php, Laravel, nginx, postgres 各環境ファイル作成 docker-compose.yml version: &#39;3&#39; services: nginx: build: ./nginx ports: - 8080:80 volumes: - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf - ./src:/var/www/app depends_on: - web web: build: ./src volumes: - ./src:/var/www/app depends_on: - db db: image: &#39;postgres:9.3&#39; ports: - &amp;quot;5432:5432&amp;quot; env_file: - ./data/env_file volumes: #</description>
+    </item>
+    
+    <item>
+      <title>Thuê nhà ở Nhật</title>
+      <link>https://thanhchungbtc.github.io/2018/04/thue-nha-o-nhat/</link>
+      <pubDate>Thu, 12 Apr 2018 09:37:11 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2018/04/thue-nha-o-nhat/</guid>
+      <description>Nhìn chung do có sự khác biệt lớn về văn hoá và người Nhật thì thường kỹ tính nền người nước ngo</description>
+    </item>
+    
+    <item>
+      <title>[PHP]UTF-8 BOMにやられた</title>
+      <link>https://thanhchungbtc.github.io/2018/02/php-suck-bom-utf8/</link>
+      <pubDate>Tue, 13 Feb 2018 19:16:40 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2018/02/php-suck-bom-utf8/</guid>
+      <description>最近、phpアプリケーションをリリースした時、とんでもないことに遭った。 全画面が動かなくなった。 問題 ソースコードを開発Linux環境からクラ</description>
+    </item>
+    
+    <item>
+      <title>[Postgres] current transaction is aborted, commands ignored until end of transaction block</title>
+      <link>https://thanhchungbtc.github.io/2018/01/postgres-current-transaction-is-aborted/</link>
+      <pubDate>Fri, 12 Jan 2018 07:15:40 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2018/01/postgres-current-transaction-is-aborted/</guid>
+      <description>psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は趙</description>
+    </item>
+    
+    <item>
+      <title>[Security]Web Application Security Checklist</title>
+      <link>https://thanhchungbtc.github.io/2017/12/web-application-security-checklist/</link>
+      <pubDate>Mon, 11 Dec 2017 23:25:22 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2017/12/web-application-security-checklist/</guid>
+      <description>最近セキュリティ考慮したシステム設計を経験したので、メモします。 1. ユーザー認証 ログイン失敗する際詳しメッセージが出さない 指定回数でログイン失</description>
+    </item>
+    
+    <item>
+      <title>Centos7/Apache上HTTPSサーバーを作ってみる</title>
+      <link>https://thanhchungbtc.github.io/2017/11/centos-apache-https-server/</link>
+      <pubDate>Thu, 02 Nov 2017 22:29:47 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2017/11/centos-apache-https-server/</guid>
+      <description>Apacheサーバー上HTTPSを構築してみた。 流れ CSRを作成する 証明書発行 サーバー設定 1. CSRを作成する CSR (Certificate Signing Request)は証明書発</description>
+    </item>
+    
+    <item>
+      <title>Https Basic Memo</title>
+      <link>https://thanhchungbtc.github.io/2017/10/https-basic-memo/</link>
+      <pubDate>Fri, 20 Oct 2017 23:08:38 +0900</pubDate>
+      
+      <guid>https://thanhchungbtc.github.io/2017/10/https-basic-memo/</guid>
+      <description>Source: Source: StackOverFlow 日本語 ブラウザはhttps://payment.comに接続を成立する。 https://payment.comのサーバーはブラウザに証</description>
+    </item>
+    
+  </channel>
+</rss>

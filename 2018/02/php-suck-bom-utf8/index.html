@@ -42,7 +42,7 @@
 <meta itemprop="description" content="最近、phpアプリケーションをリリースした時、とんでもないことに遭った。 全画面が動かなくなった。 問題 ソースコードを開発Linux環境からクラ">
 <meta itemprop="datePublished" content="2018-02-13T19:16:40&#43;09:00" />
 <meta itemprop="dateModified" content="2018-02-13T19:16:40&#43;09:00" />
-<meta itemprop="wordCount" content="432">
+<meta itemprop="wordCount" content="467">
 
 
 
@@ -69,7 +69,7 @@
     <div class="slimContent">
       <div class="navbar-header">
         <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/thanhchungbtc" target="_blank">
+          <a id="avatar" href="/" target="">
             <img class="img-circle img-rotate" src="https://thanhchungbtc.github.io/avatar.jpeg" width="200" height="200">
           </a>
           <h2 id="name" class="hidden-xs hidden-sm">Thanh Chung Bui</h2>
@@ -192,11 +192,11 @@
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/php/" class="tag-list-link">php</a><span
-                    class="tag-list-count">2</span></li>
+                    class="tag-list-count">3</span></li>
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/postgres/" class="tag-list-link">postgres</a><span
-                    class="tag-list-count">2</span></li>
+                    class="tag-list-count">3</span></li>
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/security/" class="tag-list-link">security</a><span
@@ -316,7 +316,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2018/02/php-suck-bom-utf8/#comments"
             class="article-comment-link">Comments</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 432words</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 467words</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 1minutes </span>
       </div>
     </div>
@@ -324,13 +324,13 @@
       <p>最近、<code>php</code>アプリケーションをリリースした時、とんでもないことに遭った。<br>
 全画面が動かなくなった。</p>
 <h2 id="問題">問題</h2>
-<p>ソースコードを開発Linux環境からクラウド環境へリリースした後、なんだかブラウザに「<strong>Gzipが不正よ</strong>」と文句され、画面表示ができない。<br>
+<p>ソースコードを開発Linux環境からクラウド環境へリリースした後、なんだかブラウザにResponseコード200にも関わらず、「<strong>Gzipが不正よ</strong>」と文句され、画面表示ができない。<br>
 確かにクラウド環境ではレスポンスのGzip圧縮を追加してるので、<strong>php</strong>と<strong>gzip</strong>周辺に結構ハマった。</p>
 <h2 id="原因">原因</h2>
 <p>このシステムはかなり古いので、<code>ob_start(&quot;ob_gzhandler&quot;);</code>で<code>gzip</code>レスポンスを作っている。
-<strong>gzip</strong>レスポンスを分析したところ、なんと「PHPソースファイルにBOMがついている」の原因がわかった！<br>
-※BOMは<strong>EF BB BF</strong>で確認可能</p>
-<p>Windowsのエディターでは「<strong>UTF-8 BOM付で保存</strong>」という設定があって、この設定でファイル保存かもしれないよね。</p>
+<strong>gzip</strong>レスポンスを分析したところ、なんとPHPソースファイルにBOMがついていて、不正なGzipを送信しているのが原因だった！\</p>
+<p>※BOMは<strong>EF BB BF</strong>で確認可能</p>
+<p>Windows上のエディターでは「<strong>UTF-8 BOM付で保存</strong>」という設定があって、この設定でファイル保存かもしれないよね。</p>
 <h2 id="対策">対策</h2>
 <p>全て<strong>UTF-8 BOM付</strong>のソースファイルを抽出し、BOMを消せば、正常に動いた。</p>
 <h3 id="bom付きファイル抽出">BOM付きファイル抽出</h3>
@@ -376,6 +376,8 @@
 <ul class="social-links">
     <li><a href="https://github.com/thanhchungbtc" target="_blank" title="github" data-toggle=tooltip data-placement=top >
             <i class="icon icon-github"></i></a></li>
+    <li><a href="https://stackoverflow.com/users/7552627/th%c3%a0nh-chung-b%c3%b9i" target="_blank" title="stackoverflow" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-stackoverflow"></i></a></li>
 </ul>
   <div class="copyright">
     &copy;2017  -

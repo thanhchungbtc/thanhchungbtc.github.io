@@ -42,7 +42,7 @@
 <meta itemprop="description" content="問題 psqlでSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付き">
 <meta itemprop="datePublished" content="2017-08-03T08:46:25&#43;09:00" />
 <meta itemprop="dateModified" content="2017-08-03T08:46:25&#43;09:00" />
-<meta itemprop="wordCount" content="431">
+<meta itemprop="wordCount" content="402">
 
 
 
@@ -69,7 +69,7 @@
     <div class="slimContent">
       <div class="navbar-header">
         <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/thanhchungbtc" target="_blank">
+          <a id="avatar" href="/" target="">
             <img class="img-circle img-rotate" src="https://thanhchungbtc.github.io/avatar.jpeg" width="200" height="200">
           </a>
           <h2 id="name" class="hidden-xs hidden-sm">Thanh Chung Bui</h2>
@@ -192,11 +192,11 @@
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/php/" class="tag-list-link">php</a><span
-                    class="tag-list-count">2</span></li>
+                    class="tag-list-count">3</span></li>
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/postgres/" class="tag-list-link">postgres</a><span
-                    class="tag-list-count">2</span></li>
+                    class="tag-list-count">3</span></li>
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/security/" class="tag-list-link">security</a><span
@@ -318,7 +318,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2017/08/shell-postgres-transaction-control/#comments"
             class="article-comment-link">Comments</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 431words</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 402words</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 1minutes </span>
       </div>
     </div>
@@ -356,11 +356,11 @@ EOF
 <blockquote>
 <p>ちなみに、<code>db2</code>はこのような<code>shell</code>scriptを簡単に作れる。</p>
 </blockquote>
-<p>ここで、<code>coproc</code>を使って、<code>psql</code>をバックグラウンドで動かせ、入出力結果によって判定がでるということがわかる。</p>
+<p>ここで、<code>coproc</code>を使えば、実現可能なことがわかった。</p>
+<p><code>coproc</code>の詳細は<a href="https://unix.stackexchange.com/questions/86270/how-do-you-use-the-command-coproc-in-various-shells">stackoverflow</a>ですごいわかりやすい回答があるので、ご参考ください。</p>
 <h3 id="psqlをバックグラウンドで動かせる"><code>psql</code>をバックグラウンドで動かせる</h3>
 <h3 id="psqlにsqlを取り入れる"><code>psql</code>にSQLを取り入れる</h3>
 <h3 id="sqlの実行結果を確認する"><code>SQL</code>の実行結果を確認する</h3>
-<p><code>coproc</code>の詳細は<a href="https://unix.stackexchange.com/questions/86270/how-do-you-use-the-command-coproc-in-various-shells">stackoverflow</a>ですごいわかりやすい回答があるので、ご参考ください。</p>
 
     </div>
     <div class="article-footer">
@@ -375,6 +375,11 @@ EOF
 </div><nav class="bar bar-footer clearfix" data-stick-bottom>
     <div class="bar-inner">
         <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://thanhchungbtc.github.io/2017/07/postgres-memo/" title="Postgres Memo"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;Older</span></a>
+            </li>
             <li class="next">
                 <a href="https://thanhchungbtc.github.io/2017/10/apache-security-header/"
                     title="[Security]HTTP Security Headers"><span>Newer&nbsp;&nbsp;</span><i
@@ -393,6 +398,8 @@ EOF
 <ul class="social-links">
     <li><a href="https://github.com/thanhchungbtc" target="_blank" title="github" data-toggle=tooltip data-placement=top >
             <i class="icon icon-github"></i></a></li>
+    <li><a href="https://stackoverflow.com/users/7552627/th%c3%a0nh-chung-b%c3%b9i" target="_blank" title="stackoverflow" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-stackoverflow"></i></a></li>
 </ul>
   <div class="copyright">
     &copy;2017  -

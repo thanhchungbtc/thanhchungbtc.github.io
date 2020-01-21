@@ -97,7 +97,7 @@
       <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://thanhchungbtc.github.io/about/</guid>
-      <description>Hello, My name is Chung. I am a developer based in Tokyo, Japan. I do Web and iOS development sometimes. I love learning new technologies and meet new people. In this blog, I want to share my knowledge of programming as well as the experiences while living in Japan. The content is mainly in Japanese because I am learning Japanese, too. I think it is an excellent opportunity to output</description>
+      <description>Hello, My name is Chung. I am a developer based in Tokyo, Japan. I basically do Web and iOS. This blog is where I save my memories, some useful tech tips and experiences while living in Japan. こんにちは、ブイタンチュンです。ブログをご覧いただきありがとうござ</description>
     </item>
     
     <item>
@@ -160,7 +160,7 @@
       <pubDate>Fri, 12 Jan 2018 07:15:40 +0900</pubDate>
       
       <guid>https://thanhchungbtc.github.io/2018/01/postgres-current-transaction-is-aborted/</guid>
-      <description>psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は趙</description>
+      <description>psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は簡</description>
     </item>
     
     <item>

@@ -23,7 +23,7 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <meta name="description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は趙" />
+  <meta name="description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は簡" />
   <meta name="generator" content="Hugo 0.62.2 with theme pure" />
   <title>[Postgres] current transaction is aborted, commands ignored until end of transaction block - Thanh Chung Bui&#39;s Blog</title>
   
@@ -33,22 +33,22 @@
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/vs.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
   <meta property="og:title" content="[Postgres] current transaction is aborted, commands ignored until end of transaction block" />
-<meta property="og:description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は趙" />
+<meta property="og:description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は簡" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thanhchungbtc.github.io/2018/01/postgres-current-transaction-is-aborted/" />
 <meta property="article:published_time" content="2018-01-12T07:15:40+09:00" />
 <meta property="article:modified_time" content="2018-01-12T07:15:40+09:00" />
 <meta itemprop="name" content="[Postgres] current transaction is aborted, commands ignored until end of transaction block">
-<meta itemprop="description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は趙">
+<meta itemprop="description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は簡">
 <meta itemprop="datePublished" content="2018-01-12T07:15:40&#43;09:00" />
 <meta itemprop="dateModified" content="2018-01-12T07:15:40&#43;09:00" />
-<meta itemprop="wordCount" content="858">
+<meta itemprop="wordCount" content="846">
 
 
 
 <meta itemprop="keywords" content="postgres," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Postgres] current transaction is aborted, commands ignored until end of transaction block"/>
-<meta name="twitter:description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は趙"/>
+<meta name="twitter:description" content="psqlや何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。 原因は簡"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -69,7 +69,7 @@
     <div class="slimContent">
       <div class="navbar-header">
         <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/thanhchungbtc" target="_blank">
+          <a id="avatar" href="/" target="">
             <img class="img-circle img-rotate" src="https://thanhchungbtc.github.io/avatar.jpeg" width="200" height="200">
           </a>
           <h2 id="name" class="hidden-xs hidden-sm">Thanh Chung Bui</h2>
@@ -192,11 +192,11 @@
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/php/" class="tag-list-link">php</a><span
-                    class="tag-list-count">2</span></li>
+                    class="tag-list-count">3</span></li>
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/postgres/" class="tag-list-link">postgres</a><span
-                    class="tag-list-count">2</span></li>
+                    class="tag-list-count">3</span></li>
             
             
             <li class="tag-list-item"><a href="https://thanhchungbtc.github.io/tags/security/" class="tag-list-link">security</a><span
@@ -315,28 +315,28 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2018/01/postgres-current-transaction-is-aborted/#comments"
             class="article-comment-link">Comments</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 858words</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 846words</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 2minutes </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
       <p><code>psql</code>や何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。</p>
-<p>原因は趙簡単だが、大量クエリを実行したので、気づかず、結構ハマった！</p>
+<p>原因は簡単だが、大量クエリを実行したので、気づかず、結構ハマった！</p>
 <h2 id="原因">原因</h2>
-<p><code>Transaction</code>内に一度エラーが発生すると、明治的にその<code>Transaction</code>を<code>abort</code>か<code>commit</code>か明示的に指定しなければならないようだ。</p>
-<p><code>SQL Server</code>等の他のRDBMSだと、エラーが出てきても、その場ですぐ直し、試せるんだね。</p>
+<p><code>Transaction</code>内に一度エラーが発生すると、明示的にその<code>Transaction</code>を<code>abort</code>しなければならないようだ。</p>
+<p><code>SQL Server</code>等の他のRDBMSだと、エラーが出てきても、その場で直して、処理を続けるんだね。</p>
 <p>[例]</p>
 <pre><code class="language-sql">begin;
 selet * from foo;
 </code></pre>
 <p>このクエリを実行すると、<code>「ERROR: syntax error at or near ‘selet’“」</code>が出るはず。<br>
-これで正しく<code>select * from foo;</code>に修正し、再度実行を試したが、冒頭のエラーが出て実行できなかった。<br>
-因みに、<code>sqlserver</code>はこの問題が発生しないんだね。</p>
+これで正しく<code>select * from foo;</code>に修正し、再度実行をすると、冒頭のエラーが出て実行できなかった。<br>
+因みに、<code>sqlserver</code>はこの問題が発生しないようだ。</p>
 <h2 id="対策">対策</h2>
 <p>エラーが出たら、</p>
 <pre><code>rollback;
 </code></pre>
-<p>を実行すれば、直るはず</p>
+<p>を実行しなければならない。</p>
 <h2 id="なぜpostgresはそうなったのか">なぜ<code>Postgres</code>はそうなったのか？</h2>
 <p><code>Postgres</code>はユーザで終了した<code>Transaction</code>とシステムの都合(例外等）で終了した<code>Transaction</code>は区別しているようだ。
 <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/transam/README">https://github.com/postgres/postgres/blob/master/src/backend/access/transam/README</a>を参照すると、</p>
@@ -395,6 +395,8 @@ selet * from foo;
 <ul class="social-links">
     <li><a href="https://github.com/thanhchungbtc" target="_blank" title="github" data-toggle=tooltip data-placement=top >
             <i class="icon icon-github"></i></a></li>
+    <li><a href="https://stackoverflow.com/users/7552627/th%c3%a0nh-chung-b%c3%b9i" target="_blank" title="stackoverflow" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-stackoverflow"></i></a></li>
 </ul>
   <div class="copyright">
     &copy;2017  -

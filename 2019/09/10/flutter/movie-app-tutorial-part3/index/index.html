@@ -10,16 +10,16 @@
 <title>[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget - Thanh Chung Bui</title>
 
 
-    <meta name="description" content="ゴール  Navigatorで画面遷移 Routeをカスタマイズ Widgetの構成の応用   Part2では基本的なWidgetを学習し、ホーム画面を作りました。今回は画面遷移Navigatorと残りの画面を作りましょう。  事前準備：Simulatorを立ち上げて、Intellijでデバッグ起動 少しThemeデータをカスタマイズ123456789101112131415161718192">
+    <meta name="description" content="ゴール  Navigatorで画面遷移 Routeをカスタマイズ Widgetの構成の応用   Part2では基本的なWidgetを学習し、ホーム画面を作りました。今回は画面遷移Navigatorと残りの画面を作りましょう。  事前準備：Simulatorを立ち上げて、Intellijでデバッグ起動 少しThemeデータをカスタマイズ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/flutter/movie-app-tutorial-part3/index/index.html">
 <meta property="og:site_name" content="Thanh Chung Bui">
-<meta property="og:description" content="ゴール  Navigatorで画面遷移 Routeをカスタマイズ Widgetの構成の応用   Part2では基本的なWidgetを学習し、ホーム画面を作りました。今回は画面遷移Navigatorと残りの画面を作りましょう。  事前準備：Simulatorを立ち上げて、Intellijでデバッグ起動 少しThemeデータをカスタマイズ123456789101112131415161718192">
+<meta property="og:description" content="ゴール  Navigatorで画面遷移 Routeをカスタマイズ Widgetの構成の応用   Part2では基本的なWidgetを学習し、ホーム画面を作りました。今回は画面遷移Navigatorと残りの画面を作りましょう。  事前準備：Simulatorを立ち上げて、Intellijでデバッグ起動 少しThemeデータをカスタマイズ">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2019-09-10T02:34:31.000Z">
-<meta property="article:modified_time" content="2020-02-24T11:40:38.000Z">
+<meta property="article:modified_time" content="2020-02-24T11:57:26.000Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="flutter">
@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -82,8 +82,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget" height="28">
             
             </a>
         </div>
@@ -149,7 +147,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1304 words)
+                    9 minutes read (About 1305 words)
                 </span>
                 
                 
@@ -174,8 +172,13 @@
 <p>Part2では基本的なWidgetを学習し、ホーム画面を作りました。<br>今回は画面遷移<code>Navigator</code>と残りの画面を作りましょう。</p>
 <ul>
 <li>事前準備：Simulatorを立ち上げて、Intellijでデバッグ起動</li>
-<li>少しThemeデータをカスタマイズ<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> theme = ThemeData(</span><br><span class="line">      primarySwatch: Colors.purple,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      theme: theme.copyWith(</span><br><span class="line">        primaryColor: Colors.white,</span><br><span class="line">        primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),</span><br><span class="line">        primaryColorBrightness: Brightness.light,</span><br><span class="line">        primaryTextTheme: theme.textTheme,</span><br><span class="line">        appBarTheme: theme.appBarTheme.copyWith(</span><br><span class="line">          elevation: <span class="number">1.0</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Navigator"><a href="#Navigator" class="headerlink" title="Navigator"></a>Navigator</h2>Flutterでは画面のことは<code>routes</code>と言います。<code>route</code>遷移は<code>Navigator</code>で行います。<h3 id="流れ"><a href="#流れ" class="headerlink" title="流れ"></a>流れ</h3></li>
+<li>少しThemeデータをカスタマイズ</li>
+</ul>
+<a id="more"></a>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> theme = ThemeData(</span><br><span class="line">      primarySwatch: Colors.purple,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      theme: theme.copyWith(</span><br><span class="line">        primaryColor: Colors.white,</span><br><span class="line">        primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),</span><br><span class="line">        primaryColorBrightness: Brightness.light,</span><br><span class="line">        primaryTextTheme: theme.textTheme,</span><br><span class="line">        appBarTheme: theme.appBarTheme.copyWith(</span><br><span class="line">          elevation: <span class="number">1.0</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Navigator"><a href="#Navigator" class="headerlink" title="Navigator"></a>Navigator</h2><p>Flutterでは画面のことは<code>routes</code>と言います。<code>route</code>遷移は<code>Navigator</code>で行います。</p>
+<h3 id="流れ"><a href="#流れ" class="headerlink" title="流れ"></a>流れ</h3><ul>
 <li><code>routes</code>を作成（インスタンス）、例<code>A route</code>と<code>B route</code></li>
 <li><code>Navigator.push()</code>で<code>B route</code>へ遷移します。</li>
 <li><code>Navigator.pop()</code>で<code>A route</code>に戻ります。</li>
@@ -1394,8 +1397,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="[Flutter]iOSアプリチュートリアルPart3 - Navigator、応用Widget" height="28">
                 
                 </a>
                 <p class="is-size-7">

@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -75,8 +75,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
             
             </a>
         </div>
@@ -149,7 +147,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 minutes read (About 563 words)
+                    4 minutes read (About 564 words)
                 </span>
                 
                 
@@ -164,31 +162,16 @@
         <div class="content">
             <p><code>psql</code>や何かのSQLツールで、SQLを実行した時、このエラーが出ると、その後クエリが実行できなくなることがあったので、調べてみた。</p>
 <p>原因は簡単だが、大量クエリを実行したので、気づかず、結構ハマった！</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><code>Transaction</code>内に一度エラーが発生すると、明示的にその<code>Transaction</code>を<code>abort</code>しなければならないようだ。</p>
-<p><code>SQL Server</code>等の他のRDBMSだと、エラーが出てきても、その場で直して、処理を続けるんだね。</p>
-<p>[例]</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span>;</span><br><span class="line">selet * from foo;</span><br></pre></td></tr></table></figure>
-<p>このクエリを実行すると、<code>「ERROR: syntax error at or near ‘selet’“」</code>が出るはず。<br>これで正しく<code>select * from foo;</code>に修正し、再度実行をすると、冒頭のエラーが出て実行できなかった。<br>因みに、<code>sqlserver</code>はこの問題が発生しないようだ。</p>
-<h2 id="対策"><a href="#対策" class="headerlink" title="対策"></a>対策</h2><p>エラーが出たら、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollback;</span><br></pre></td></tr></table></figure>
-<p>を実行しなければならない。</p>
-<h2 id="なぜPostgresはそうなったのか？"><a href="#なぜPostgresはそうなったのか？" class="headerlink" title="なぜPostgresはそうなったのか？"></a>なぜ<code>Postgres</code>はそうなったのか？</h2><p><code>Postgres</code>はユーザで終了した<code>Transaction</code>とシステムの都合(例外等）で終了した<code>Transaction</code>は区別しているようだ。<br><a href="https://github.com/postgres/postgres/blob/master/src/backend/access/transam/README">https://github.com/postgres/postgres/blob/master/src/backend/access/transam/README</a>を参照すると、</p>
-<blockquote>
-<ul>
-<li><ol>
-<li>システムの都合で<code>Transaction</code>が終了した場合：AbortCurrentTransaction アプリケーション状態はTBLOCK_ABORT</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>ユーザで<code>Transaction</code>を終了した場合：UserAbortTransactionBlock アプリケーション状態はTBLOCK_ABORT_END</li>
-</ol>
-</li>
-</ul>
-</blockquote>
-<p>ケース１でも自動に<code>Transaction</code>を終了させれば良いでしょうかって思うよね。<br>実はそれに応じる<code>onerrorrollback</code>オプションがあるが、やっぱり長い<code>Transaction</code>内にエラーが発生したら、最初から実施しないといけない点は不便が感じるよね〜<br><code>onerrorrollback</code>についての詳細説明も是非ご参照ください。<br><a href="https://www.endpoint.com/blog/2015/02/24/postgres-onerrorrollback-explained">https://www.endpoint.com/blog/2015/02/24/postgres-onerrorrollback-explained</a></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2018/01/11/postgres-current-transaction-is-aborted/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -214,7 +197,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 254 words)
+                    2 minutes read (About 255 words)
                 </span>
                 
                 
@@ -228,18 +211,16 @@
         </h1>
         <div class="content">
             <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p><code>psql</code>でSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付きの複雑SQLを実行することができない。</p>
-<p>今回以下のようにShell scriptを作りたい。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">ConnectDb</span></span>() &#123;</span><br><span class="line">	 PGPASSWORD=postgres psql -U postgres database -t -A -F , -v ON_ERROR_STOP=1 -v AUTOCOMMIT=0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">printMsg</span></span>() &#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"<span class="variable">$PROGRAM</span>/<span class="variable">$SUBMODULE</span> <span class="variable">$(date "+ %Y%H%s")</span>"</span> <span class="variable">$1</span> | tee -a ~/Desktop/shell/<span class="built_in">log</span>/test.log</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ConnectDb &lt;&lt;EOF</span><br><span class="line">  start transaction;</span><br><span class="line"></span><br><span class="line">  select * from ...;</span><br><span class="line">  <span class="comment"># other database stubs</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># addtional operations like logging come here</span></span><br><span class="line">  printMsg <span class="string">"Querying ..."</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># mix of conditional shell and psql command</span></span><br><span class="line">  <span class="keyword">if</span> [ some accepted condition ] commit;</span><br><span class="line">  <span class="keyword">if</span> [ some bad conditions ] rollback;</span><br><span class="line">  <span class="keyword">if</span> [ should <span class="keyword">do</span> more database query ] <span class="keyword">do</span> some CRUD actions</span><br><span class="line">  </span><br><span class="line">  commit;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h2 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h2><p><code>shell</code>と<code>SQL</code>が混在する為、単純の<code>psql</code>に制御コマンドを入れることができない。</p>
-<blockquote>
-<p>ちなみに、<code>db2</code>はこのような<code>shell</code>scriptを簡単に作れる。</p>
-</blockquote>
-<p>ここで、<code>coproc</code>を使えば、実現可能なことがわかった。</p>
-<p><code>coproc</code>の詳細は<a href="https://unix.stackexchange.com/questions/86270/how-do-you-use-the-command-coproc-in-various-shells">stackoverflow</a>ですごいわかりやすい回答があるので、ご参考ください。</p>
-<h3 id="psqlをバックグラウンドで動かせる"><a href="#psqlをバックグラウンドで動かせる" class="headerlink" title="psqlをバックグラウンドで動かせる"></a><code>psql</code>をバックグラウンドで動かせる</h3><h3 id="psqlにSQLを取り入れる"><a href="#psqlにSQLを取り入れる" class="headerlink" title="psqlにSQLを取り入れる"></a><code>psql</code>にSQLを取り入れる</h3><h3 id="SQLの実行結果を確認する"><a href="#SQLの実行結果を確認する" class="headerlink" title="SQLの実行結果を確認する"></a><code>SQL</code>の実行結果を確認する</h3>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/08/02/shell-postgres-transaction-control/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -265,7 +246,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    a few seconds read (About 108 words)
+                    a few seconds read (About 109 words)
                 </span>
                 
                 
@@ -281,23 +262,16 @@
             <h2 id="Useful-Postgres-command"><a href="#Useful-Postgres-command" class="headerlink" title="Useful Postgres command"></a>Useful Postgres command</h2><h3 id="1-Move-DB-to-another-server"><a href="#1-Move-DB-to-another-server" class="headerlink" title="1. Move DB to another server"></a>1. Move DB to another server</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_dump -C -h sourceip -U username password | psql -h destinationip -U username</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-Init-start-restart"><a href="#2-Init-start-restart" class="headerlink" title="2. Init, start, restart"></a>2. Init, start, restart</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">initdb -D /path/to/data/folder</span><br><span class="line">pg_ctl -D /path/to/data/folder start</span><br><span class="line">pg_ctl -D /path/to/data/folder restart</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-Config-file"><a href="#3-Config-file" class="headerlink" title="3. Config file"></a>3. Config file</h3><ul>
-<li>pg_hba.config: use to config authentication method </li>
-<li>postgres.conf: use to config listenning host, etc.</li>
-</ul>
-<h3 id="4-Config-authentication"><a href="#4-Config-authentication" class="headerlink" title="4. Config authentication"></a>4. Config authentication</h3><ul>
-<li><p><strong>For server</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /path/to/pg_hba.conf</span><br><span class="line"><span class="comment"># add the following line:</span></span><br><span class="line">host    all             all             10.0.0.70/32            md5</span><br><span class="line"><span class="comment"># change IP address</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>For client</strong><br>Create ~/.pgpass and add the following line</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host:port:dbname:usr:<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
-<p>change permission</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 0600 ~/.pgpass</span><br></pre></td></tr></table></figure></li>
-</ul>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/07/24/postgres-memo/index/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -1381,8 +1355,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
                 
                 </a>
                 <p class="is-size-7">

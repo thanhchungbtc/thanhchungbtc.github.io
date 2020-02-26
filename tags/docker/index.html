@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -75,8 +75,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
             
             </a>
         </div>
@@ -149,7 +147,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 minutes read (About 497 words)
+                    3 minutes read (About 498 words)
                 </span>
                 
                 
@@ -168,44 +166,16 @@
 </ul>
 <h2 id="各環境ファイル作成"><a href="#各環境ファイル作成" class="headerlink" title="各環境ファイル作成"></a>各環境ファイル作成</h2><p><strong>docker-compose.yml</strong></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"><span class="attr">services:</span> </span><br><span class="line">  <span class="attr">nginx:</span> </span><br><span class="line">    <span class="attr">build:</span> <span class="string">./nginx</span></span><br><span class="line">    <span class="attr">ports:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="number">8080</span><span class="string">:80</span> </span><br><span class="line">    <span class="attr">volumes:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">./nginx/nginx.conf:/etc/nginx/conf.d/default.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./src:/var/www/app</span></span><br><span class="line">    <span class="attr">depends_on:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">web</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">./src</span></span><br><span class="line">    <span class="attr">volumes:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">./src:/var/www/app</span></span><br><span class="line">    <span class="attr">depends_on:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">'postgres:9.3'</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"5432:5432"</span></span><br><span class="line">    <span class="attr">env_file:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data/env_file</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># - ./data/postgres:/var/lib/postgresql/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">pgdata:/var/lib/postgresql/data</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># volumes:</span></span><br><span class="line"><span class="comment">#   pgdata:</span></span><br></pre></td></tr></table></figure>
-<p><strong>data/env_file</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">POSTGRES_USER&#x3D;postgres</span><br><span class="line">POSTGRES_DB&#x3D;my_db</span><br><span class="line">POSTGRES_PASSWORD&#x3D;postgres</span><br></pre></td></tr></table></figure>
-
-<p><strong>nginx/nginx.conf</strong></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">listen</span> <span class="number">80</span><span class="string">;</span></span><br><span class="line">    <span class="string">server_name</span> <span class="string">app;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">root</span>  <span class="string">/var/www/app;</span></span><br><span class="line">    <span class="string">index</span> <span class="string">index.php</span> <span class="string">index.html;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">access_log</span> <span class="string">/var/log/nginx/access.log;</span></span><br><span class="line">    <span class="string">error_log</span>  <span class="string">/var/log/nginx/error.log;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">try_files</span> <span class="string">$uri</span> <span class="string">$uri/</span> <span class="string">/index.php$is_args$args;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">location</span> <span class="string">~</span> <span class="string">\.php$</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">fastcgi_pass</span> <span class="string">web:9000;</span></span><br><span class="line">        <span class="string">fastcgi_index</span> <span class="string">index.php;</span>    </span><br><span class="line">        <span class="string">fastcgi_param</span> <span class="string">SCRIPT_FILENAME</span>  <span class="string">$document_root$fastcgi_script_name;</span></span><br><span class="line">        <span class="string">include</span>       <span class="string">fastcgi_params;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="サービスを起動"><a href="#サービスを起動" class="headerlink" title="サービスを起動"></a>サービスを起動</h2><h3 id="バックグランドで起動"><a href="#バックグランドで起動" class="headerlink" title="バックグランドで起動"></a>バックグランドで起動</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>ここで<strong>web</strong>, <strong>nginx</strong>, <strong>db</strong>の３サービスが立ち上がって、<strong>localhost:8080</strong>アクセスできる</p>
-<h3 id="再ビルドしてから起動"><a href="#再ビルドしてから起動" class="headerlink" title="再ビルドしてから起動"></a>再ビルドしてから起動</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d --build</span><br></pre></td></tr></table></figure>
-
-<h2 id="解説"><a href="#解説" class="headerlink" title="解説"></a>解説</h2><ul>
-<li><p>Dockerはデータを持たない為、再起動するとデータ損失</p>
-</li>
-<li><p>データ損失を防ぐ為、<strong>volumes</strong>を使用する</p>
-</li>
-<li><p><strong>postgres</strong>イメージは<strong>env_file</strong>の情報でデータベースを作成する</p>
-</li>
-<li><p><strong>postgres</strong>のデータを<strong>volumes</strong>に格納すれば、データ維持できる</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">./data/postgres:/var/lib/postgresql/data</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Windows環境ではなんだかこのような<strong>volumes</strong>マウントしかたは上手く行きそうにないのでで、ネームvolumesに修正した</p>
-</li>
-</ul>
-<blockquote>
-<p>FATAL: data directory “/var/lib/postgresql/data” has wrong ownership</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">pgdata:/var/lib/postgresql/data</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">pgdata:</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>docker-compose up -d</strong>を実行すると、以下が起こる<ul>
-<li><strong>myapp_default</strong>ネットワークが作られる。</li>
-<li><strong>web</strong>, <strong>nginx</strong>, <strong>db</strong>の３サービスが作成され、<strong>myapp_default</strong>にジョイン</li>
-<li><strong>myapp_default</strong>ネットワーク環境下で、名前でアクセス可能。<br>例<strong>web</strong>から<strong>db</strong>でデータベースをアクセス、<br><strong>nginx</strong>で<strong>web</strong>を使って、<strong>web</strong>をアクセス\</li>
-</ul>
-</li>
-</ul>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2018/04/30/docker-memo/index/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -1289,8 +1259,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
                 
                 </a>
                 <p class="is-size-7">

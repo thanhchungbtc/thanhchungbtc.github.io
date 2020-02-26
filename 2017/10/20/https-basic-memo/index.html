@@ -19,7 +19,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2017-10-20T05:08:38.000Z">
-<meta property="article:modified_time" content="2020-02-24T11:40:38.000Z">
+<meta property="article:modified_time" content="2020-02-24T11:59:00.000Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="https">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -80,8 +80,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="Https Basic Memo" height="28">
             
             </a>
         </div>
@@ -147,7 +145,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    24 minutes read (About 3565 words)
+                    24 minutes read (About 3566 words)
                 </span>
                 
                 
@@ -167,9 +165,8 @@
 <li>ブラウザは<code>https://payment.com</code>の証明書は有効であるものを確認する。※</li>
 <li>ステップ３を通過したら、ブラウザは新しい鍵（<code>K</code>と呼ばれる）を生成し、<code>https://payment.com</code>の公開鍵を使って暗号化してから<code>https://payment.com</code>に送信する</li>
 <li><code>https://payment.com</code>は機密鍵で<code>K</code>を複合化する</li>
-<li>ここからブラウザとサーバは<code>K</code>でデータ通信を行う。</li>
-</ol>
-<h2 id="Tieng-Viet"><a href="#Tieng-Viet" class="headerlink" title="Tiếng Việt."></a>Tiếng Việt.</h2><ol>
+<li>ここからブラウザとサーバは<code>K</code>でデータ通信を行う。<a id="more"></a>
+<h2 id="Tieng-Viet"><a href="#Tieng-Viet" class="headerlink" title="Tiếng Việt."></a>Tiếng Việt.</h2></li>
 <li>Browser sẽ truy cập 1 trang web https. Ở đây là <a href="https://payment.com">https://payment.com</a></li>
 <li>Server hay Load Balancer (LB) của payment.com sẽ trả về certificate để chứng thực rằng website user đang truy cập là website chính thức. Trong certificate là một public key PK, dùng để mã hóa K ở bước 4.</li>
 <li>Browser sẽ kiểm chứng certificate (bằng cách chạy thuật toán kiểm tra chữ ký). Quá trình này giúp browser xác định <a href="https://payment.com">https://payment.com</a> là thật hay giả.</li>
@@ -1372,8 +1369,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="Https Basic Memo" height="28">
                 
                 </a>
                 <p class="is-size-7">

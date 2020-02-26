@@ -10,16 +10,16 @@
 <title>[PHP]UTF-8 BOMにやられた - Thanh Chung Bui</title>
 
 
-    <meta name="description" content="最近、phpアプリケーションをリリースした時、とんでもないことに遭った。全画面が動かなくなった。 問題ソースコードを開発Linux環境からクラウド環境へリリースした後、なんだかブラウザにResponseコード200にも関わらず、「Gzipが不正よ」と文句され、画面表示ができない。確かにクラウド環境ではレスポンスのGzip圧縮を追加してるので、phpとgzip周辺に結構ハマった。 原因このシステムは">
+    <meta name="description" content="最近、phpアプリケーションをリリースした時、とんでもないことに遭った。全画面が動かなくなった。 問題ソースコードを開発Linux環境からクラウド環境へリリースした後、なんだかブラウザにResponseコード200にも関わらず、「Gzipが不正よ」と文句され、画面表示ができない。確かにクラウド環境ではレスポンスのGzip圧縮を追加してるので、phpとgzip周辺に結構ハマった。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[PHP]UTF-8 BOMにやられた">
 <meta property="og:url" content="http://yoursite.com/2018/02/13/php-suck-bom-utf8/index.html">
 <meta property="og:site_name" content="Thanh Chung Bui">
-<meta property="og:description" content="最近、phpアプリケーションをリリースした時、とんでもないことに遭った。全画面が動かなくなった。 問題ソースコードを開発Linux環境からクラウド環境へリリースした後、なんだかブラウザにResponseコード200にも関わらず、「Gzipが不正よ」と文句され、画面表示ができない。確かにクラウド環境ではレスポンスのGzip圧縮を追加してるので、phpとgzip周辺に結構ハマった。 原因このシステムは">
+<meta property="og:description" content="最近、phpアプリケーションをリリースした時、とんでもないことに遭った。全画面が動かなくなった。 問題ソースコードを開発Linux環境からクラウド環境へリリースした後、なんだかブラウザにResponseコード200にも関わらず、「Gzipが不正よ」と文句され、画面表示ができない。確かにクラウド環境ではレスポンスのGzip圧縮を追加してるので、phpとgzip周辺に結構ハマった。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2018-02-13T01:16:40.000Z">
-<meta property="article:modified_time" content="2020-02-24T11:40:38.000Z">
+<meta property="article:modified_time" content="2020-02-24T11:59:00.000Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="php">
 <meta property="article:tag" content="bom">
@@ -38,7 +38,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -81,8 +81,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="[PHP]UTF-8 BOMにやられた" height="28">
             
             </a>
         </div>
@@ -148,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 372 words)
+                    2 minutes read (About 373 words)
                 </span>
                 
                 
@@ -163,6 +161,8 @@
         <div class="content">
             <p>最近、<code>php</code>アプリケーションをリリースした時、とんでもないことに遭った。<br>全画面が動かなくなった。</p>
 <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>ソースコードを開発Linux環境からクラウド環境へリリースした後、なんだかブラウザにResponseコード200にも関わらず、「<strong>Gzipが不正よ</strong>」と文句され、画面表示ができない。<br>確かにクラウド環境ではレスポンスのGzip圧縮を追加してるので、<strong>php</strong>と<strong>gzip</strong>周辺に結構ハマった。</p>
+<a id="more"></a>
+
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>このシステムはかなり古いので、<code>ob_start(&quot;ob_gzhandler&quot;);</code>で<code>gzip</code>レスポンスを作っている。<br><strong>gzip</strong>レスポンスを分析したところ、なんとPHPソースファイルにBOMがついていて、不正なGzipを送信しているのが原因だった！\</p>
 <p>※BOMは<strong>EF BB BF</strong>で確認可能</p>
 <p>Windows上のエディターでは「<strong>UTF-8 BOM付で保存</strong>」という設定があって、この設定でファイル保存かもしれないよね。</p>
@@ -1315,8 +1315,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="[PHP]UTF-8 BOMにやられた" height="28">
                 
                 </a>
                 <p class="is-size-7">

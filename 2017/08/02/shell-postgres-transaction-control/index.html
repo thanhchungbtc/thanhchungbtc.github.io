@@ -10,16 +10,16 @@
 <title>[Shell]Shellで複雑なトランザクション制御方法 - Thanh Chung Bui</title>
 
 
-    <meta name="description" content="問題psqlでSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付きの複雑SQLを実行することができない。 今回以下のようにShell scriptを作りたい。 123456789101112131415161718192021222324ConnectDb() &amp;#123;	 PGPASSWORD&#x3D;postgres psql">
+    <meta name="description" content="問題psqlでSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付きの複雑SQLを実行することができない。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Shell]Shellで複雑なトランザクション制御方法">
 <meta property="og:url" content="http://yoursite.com/2017/08/02/shell-postgres-transaction-control/index.html">
 <meta property="og:site_name" content="Thanh Chung Bui">
-<meta property="og:description" content="問題psqlでSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付きの複雑SQLを実行することができない。 今回以下のようにShell scriptを作りたい。 123456789101112131415161718192021222324ConnectDb() &amp;#123;	 PGPASSWORD&#x3D;postgres psql">
+<meta property="og:description" content="問題psqlでSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付きの複雑SQLを実行することができない。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2017-08-02T14:46:25.000Z">
-<meta property="article:modified_time" content="2020-02-24T11:40:38.000Z">
+<meta property="article:modified_time" content="2020-02-24T11:59:00.000Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="shell">
@@ -40,7 +40,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -83,8 +83,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="[Shell]Shellで複雑なトランザクション制御方法" height="28">
             
             </a>
         </div>
@@ -150,7 +148,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 254 words)
+                    2 minutes read (About 255 words)
                 </span>
                 
                 
@@ -164,6 +162,7 @@
         </h1>
         <div class="content">
             <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p><code>psql</code>でSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付きの複雑SQLを実行することができない。</p>
+<a id="more"></a>
 <p>今回以下のようにShell scriptを作りたい。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">ConnectDb</span></span>() &#123;</span><br><span class="line">	 PGPASSWORD=postgres psql -U postgres database -t -A -F , -v ON_ERROR_STOP=1 -v AUTOCOMMIT=0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">printMsg</span></span>() &#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"<span class="variable">$PROGRAM</span>/<span class="variable">$SUBMODULE</span> <span class="variable">$(date "+ %Y%H%s")</span>"</span> <span class="variable">$1</span> | tee -a ~/Desktop/shell/<span class="built_in">log</span>/test.log</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ConnectDb &lt;&lt;EOF</span><br><span class="line">  start transaction;</span><br><span class="line"></span><br><span class="line">  select * from ...;</span><br><span class="line">  <span class="comment"># other database stubs</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># addtional operations like logging come here</span></span><br><span class="line">  printMsg <span class="string">"Querying ..."</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># mix of conditional shell and psql command</span></span><br><span class="line">  <span class="keyword">if</span> [ some accepted condition ] commit;</span><br><span class="line">  <span class="keyword">if</span> [ some bad conditions ] rollback;</span><br><span class="line">  <span class="keyword">if</span> [ should <span class="keyword">do</span> more database query ] <span class="keyword">do</span> some CRUD actions</span><br><span class="line">  </span><br><span class="line">  commit;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 
@@ -1319,8 +1318,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="[Shell]Shellで複雑なトランザクション制御方法" height="28">
                 
                 </a>
                 <p class="is-size-7">

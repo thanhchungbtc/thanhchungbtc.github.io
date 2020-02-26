@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -75,8 +75,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
             
             </a>
         </div>
@@ -139,7 +137,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 minutes read (About 593 words)
+                    4 minutes read (About 594 words)
                 </span>
                 
                 
@@ -155,226 +153,17 @@
             <h2 id="X-XSS-Protection"><a href="#X-XSS-Protection" class="headerlink" title="X-XSS-Protection"></a>X-XSS-Protection</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X-XSS-Protection: 0; </span><br><span class="line">X-XSS-Protection: 1; </span><br><span class="line">X-XSS-Protection: 1; mode=block</span><br></pre></td></tr></table></figure>
 <h3 id="設定方法"><a href="#設定方法" class="headerlink" title="設定方法"></a>設定方法</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-XSS-Protection: 1; mode=block</span><br></pre></td></tr></table></figure>
 <ul>
-<li>理由は<a href="https://blog.innerht.ml/the-misunderstood-x-xss-protection/">こちら</a>ご覧ください</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="left">platform</th>
-<th align="left">どう設定するの</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Rails4,5</td>
-<td align="left">設定不要。(デフォルト有効）</td>
-</tr>
-<tr>
-<td align="left">Django</td>
-<td align="left">SECURE_BROWSER_XSS_FILTER = True</td>
-</tr>
-<tr>
-<td align="left">Express.js</td>
-<td align="left">Helmet</td>
-</tr>
-<tr>
-<td align="left">Go</td>
-<td align="left">unrolled/secure</td>
-</tr>
-<tr>
-<td align="left">Nginx</td>
-<td align="left">add_header: X-XSS-Protection “1; mode=block”;</td>
-</tr>
-<tr>
-<td align="left">Apache</td>
-<td align="left">Header always set X-XSS-Protection “1; mode=block”</td>
-</tr>
-</tbody></table>
-<h2 id="Content-Security-Policy-CSP"><a href="#Content-Security-Policy-CSP" class="headerlink" title="Content Security Policy (CSP)"></a>Content Security Policy (CSP)</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: &lt;policy&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="設定方法-1"><a href="#設定方法-1" class="headerlink" title="設定方法"></a>設定方法</h3><table>
-<thead>
-<tr>
-<th align="left">platform</th>
-<th align="left">どう設定するの</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Rails4,5</td>
-<td align="left">secureheaders</td>
-</tr>
-<tr>
-<td align="left">Django</td>
-<td align="left">django-csp</td>
-</tr>
-<tr>
-<td align="left">Express.js</td>
-<td align="left">helmet/csp</td>
-</tr>
-<tr>
-<td align="left">Go</td>
-<td align="left">unrolled/secure</td>
-</tr>
-<tr>
-<td align="left">Nginx</td>
-<td align="left">add_header Content-Security-Policy “<policy>”;</td>
-</tr>
-<tr>
-<td align="left">Apache</td>
-<td align="left">Header always set Content-Security-Policy “<policy>”</td>
-</tr>
-</tbody></table>
-<p>参照：</p>
-<ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy</a></li>
-<li><a href="https://csp.withgoogle.com/docs/adopting-csp.html">https://csp.withgoogle.com/docs/adopting-csp.html</a></li>
-</ul>
-<h2 id="HTTP-Strict-Transport-Security-HSTS"><a href="#HTTP-Strict-Transport-Security-HSTS" class="headerlink" title="HTTP Strict Transport Security (HSTS)"></a>HTTP Strict Transport Security (HSTS)</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Strict-Transport-Security: max-age=&lt;expire-time&gt;</span><br><span class="line">Strict-Transport-Security: max-age=&lt;expire-time&gt;; includeSubDomains</span><br><span class="line">Strict-Transport-Security: max-age=&lt;expire-time&gt;; preload</span><br></pre></td></tr></table></figure>
-
-<h3 id="設定方法-2"><a href="#設定方法-2" class="headerlink" title="設定方法"></a>設定方法</h3><table>
-<thead>
-<tr>
-<th align="left">platform</th>
-<th align="left">どう設定するの</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Rails 4</td>
-<td align="left">config.force_ssl = true; config.ssl_options = { hsts: { subdomains: true } }</td>
-</tr>
-<tr>
-<td align="left">Rails 5</td>
-<td align="left">config.force_ssl = true</td>
-</tr>
-<tr>
-<td align="left">Django</td>
-<td align="left">SECURE_HSTS_SECONDS = 31536000; SECURE_HSTS_INCLUDE_SUBDOMAINS = True</td>
-</tr>
-<tr>
-<td align="left">Express.js</td>
-<td align="left">helmet</td>
-</tr>
-<tr>
-<td align="left">Go</td>
-<td align="left">unrolled/secure</td>
-</tr>
-<tr>
-<td align="left">Nginx</td>
-<td align="left">add_header Strict-Transport-Security “max-age=31536000; includeSubdomains; “;</td>
-</tr>
-<tr>
-<td align="left">Apache</td>
-<td align="left">Header always set Strict-Transport-Security “max-age=31536000; includeSubdomains;</td>
-</tr>
-</tbody></table>
-<h2 id="HTTP-Public-Key-Pinning-HPKP"><a href="#HTTP-Public-Key-Pinning-HPKP" class="headerlink" title="HTTP Public Key Pinning (HPKP)"></a>HTTP Public Key Pinning (HPKP)</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Public-Key-Pins: pin-sha256=&lt;base64==&gt;; max-age=&lt;expireTime&gt;;</span><br><span class="line">Public-Key-Pins: pin-sha256=&lt;base64==&gt;; max-age=&lt;expireTime&gt;; includeSubDomains</span><br><span class="line">Public-Key-Pins: pin-sha256=&lt;base64==&gt;; max-age=&lt;expireTime&gt;; report-uri=&lt;reportURI&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="設定方法-3"><a href="#設定方法-3" class="headerlink" title="設定方法"></a>設定方法</h3><p>設定を推奨しない<br>参照：<a href="https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead">https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead</a></p>
-<h2 id="X-Frame-Options"><a href="#X-Frame-Options" class="headerlink" title="X-Frame-Options"></a>X-Frame-Options</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X-Frame-Options: DENY</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">X-Frame-Options: ALLOW-FROM https://example.com/</span><br></pre></td></tr></table></figure>
-
-<h3 id="設定方法-4"><a href="#設定方法-4" class="headerlink" title="設定方法"></a>設定方法</h3><table>
-<thead>
-<tr>
-<th align="left">platform</th>
-<th align="left">どう設定するの</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Rails4,5</td>
-<td align="left">config.action_dispatch.default_headers[‘X-Frame-Options’] = “DENY”</td>
-</tr>
-<tr>
-<td align="left">Django</td>
-<td align="left">X_FRAME_OPTIONS = ‘DENY’</td>
-</tr>
-<tr>
-<td align="left">Express.js</td>
-<td align="left">helmet</td>
-</tr>
-<tr>
-<td align="left">Go</td>
-<td align="left">unrolled/secure</td>
-</tr>
-<tr>
-<td align="left">Nginx</td>
-<td align="left">add_header X-Frame-Options “deny”;</td>
-</tr>
-<tr>
-<td align="left">Apache</td>
-<td align="left">Header always set X-Frame-Options “deny”</td>
-</tr>
-</tbody></table>
-<h2 id="X-Content-Type-Options"><a href="#X-Content-Type-Options" class="headerlink" title="X-Content-Type-Options"></a>X-Content-Type-Options</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Content-Type-Options: nosniff;</span><br></pre></td></tr></table></figure>
-<p><strong>MIME sniffing</strong>を防ぐヘッダ</p>
-<h3 id="設定方法-5"><a href="#設定方法-5" class="headerlink" title="設定方法"></a>設定方法</h3><table>
-<thead>
-<tr>
-<th align="left">platform</th>
-<th align="left">どう設定するの</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Rails4,5</td>
-<td align="left">デフォルト有効</td>
-</tr>
-<tr>
-<td align="left">Django</td>
-<td align="left">SECURE_CONTENT_TYPE_NOSNIFF = True</td>
-</tr>
-<tr>
-<td align="left">Express.js</td>
-<td align="left">helmet</td>
-</tr>
-<tr>
-<td align="left">Go</td>
-<td align="left">unrolled/secure</td>
-</tr>
-<tr>
-<td align="left">Nginx</td>
-<td align="left">add_header X-Content-Type-Options nosniff;</td>
-</tr>
-<tr>
-<td align="left">Apache</td>
-<td align="left">Header always set X-Content-Type-Options nosniff</td>
-</tr>
-</tbody></table>
-<h2 id="Referrer-Policy"><a href="#Referrer-Policy" class="headerlink" title="Referrer-Policy"></a>Referrer-Policy</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Referrer-Policy: <span class="string">"no-referrer"</span></span><br><span class="line">Referrer-Policy: <span class="string">"no-referrer-when-downgrade"</span></span><br><span class="line">Referrer-Policy: <span class="string">"origin"</span></span><br><span class="line">Referrer-Policy: <span class="string">"origin-when-cross-origin"</span></span><br><span class="line">Referrer-Policy: <span class="string">"same-origin"</span></span><br><span class="line">Referrer-Policy: <span class="string">"strict-origin"</span></span><br><span class="line">Referrer-Policy: <span class="string">"strict-origin-when-cross-origin"</span></span><br><span class="line">Referrer-Policy: <span class="string">"unsafe-url"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="設定方法-6"><a href="#設定方法-6" class="headerlink" title="設定方法"></a>設定方法</h3><table>
-<thead>
-<tr>
-<th align="left">platform</th>
-<th align="left">どう設定するの</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Rails4,5</td>
-<td align="left">secureheaders</td>
-</tr>
-<tr>
-<td align="left">Django</td>
-<td align="left">Custom middleware</td>
-</tr>
-<tr>
-<td align="left">Express.js</td>
-<td align="left">helmet</td>
-</tr>
-<tr>
-<td align="left">Go</td>
-<td align="left">Custom middleware</td>
-</tr>
-<tr>
-<td align="left">Nginx</td>
-<td align="left">add_header Referrer-Policy “no-referrer”;</td>
-</tr>
-<tr>
-<td align="left">Apache</td>
-<td align="left">Header always set Referrer-Policy “no-referrer”</td>
-</tr>
-</tbody></table>
-<p>参照：<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy</a></p>
-<p>参照：<a href="https://techtalk.vn/tat-ca-nhung-thu-ban-can-biet-ve-http-security-headers.html">https://techtalk.vn/tat-ca-nhung-thu-ban-can-biet-ve-http-security-headers.html</a></p>
-
+<li>理由は<a href="https://blog.innerht.ml/the-misunderstood-x-xss-protection/">こちら</a>ご覧ください
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/10/13/apache-security-header/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -400,7 +189,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 254 words)
+                    2 minutes read (About 255 words)
                 </span>
                 
                 
@@ -414,18 +203,16 @@
         </h1>
         <div class="content">
             <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p><code>psql</code>でSQLを指定して実行できるが、例えば複数SQLを同時に実行させ、また前のSQLの結果によって、続行するかしないかという条件付きの複雑SQLを実行することができない。</p>
-<p>今回以下のようにShell scriptを作りたい。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">ConnectDb</span></span>() &#123;</span><br><span class="line">	 PGPASSWORD=postgres psql -U postgres database -t -A -F , -v ON_ERROR_STOP=1 -v AUTOCOMMIT=0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">printMsg</span></span>() &#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"<span class="variable">$PROGRAM</span>/<span class="variable">$SUBMODULE</span> <span class="variable">$(date "+ %Y%H%s")</span>"</span> <span class="variable">$1</span> | tee -a ~/Desktop/shell/<span class="built_in">log</span>/test.log</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ConnectDb &lt;&lt;EOF</span><br><span class="line">  start transaction;</span><br><span class="line"></span><br><span class="line">  select * from ...;</span><br><span class="line">  <span class="comment"># other database stubs</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># addtional operations like logging come here</span></span><br><span class="line">  printMsg <span class="string">"Querying ..."</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># mix of conditional shell and psql command</span></span><br><span class="line">  <span class="keyword">if</span> [ some accepted condition ] commit;</span><br><span class="line">  <span class="keyword">if</span> [ some bad conditions ] rollback;</span><br><span class="line">  <span class="keyword">if</span> [ should <span class="keyword">do</span> more database query ] <span class="keyword">do</span> some CRUD actions</span><br><span class="line">  </span><br><span class="line">  commit;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h2 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h2><p><code>shell</code>と<code>SQL</code>が混在する為、単純の<code>psql</code>に制御コマンドを入れることができない。</p>
-<blockquote>
-<p>ちなみに、<code>db2</code>はこのような<code>shell</code>scriptを簡単に作れる。</p>
-</blockquote>
-<p>ここで、<code>coproc</code>を使えば、実現可能なことがわかった。</p>
-<p><code>coproc</code>の詳細は<a href="https://unix.stackexchange.com/questions/86270/how-do-you-use-the-command-coproc-in-various-shells">stackoverflow</a>ですごいわかりやすい回答があるので、ご参考ください。</p>
-<h3 id="psqlをバックグラウンドで動かせる"><a href="#psqlをバックグラウンドで動かせる" class="headerlink" title="psqlをバックグラウンドで動かせる"></a><code>psql</code>をバックグラウンドで動かせる</h3><h3 id="psqlにSQLを取り入れる"><a href="#psqlにSQLを取り入れる" class="headerlink" title="psqlにSQLを取り入れる"></a><code>psql</code>にSQLを取り入れる</h3><h3 id="SQLの実行結果を確認する"><a href="#SQLの実行結果を確認する" class="headerlink" title="SQLの実行結果を確認する"></a><code>SQL</code>の実行結果を確認する</h3>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/08/02/shell-postgres-transaction-control/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -451,7 +238,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    a few seconds read (About 108 words)
+                    a few seconds read (About 109 words)
                 </span>
                 
                 
@@ -467,23 +254,16 @@
             <h2 id="Useful-Postgres-command"><a href="#Useful-Postgres-command" class="headerlink" title="Useful Postgres command"></a>Useful Postgres command</h2><h3 id="1-Move-DB-to-another-server"><a href="#1-Move-DB-to-another-server" class="headerlink" title="1. Move DB to another server"></a>1. Move DB to another server</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_dump -C -h sourceip -U username password | psql -h destinationip -U username</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-Init-start-restart"><a href="#2-Init-start-restart" class="headerlink" title="2. Init, start, restart"></a>2. Init, start, restart</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">initdb -D /path/to/data/folder</span><br><span class="line">pg_ctl -D /path/to/data/folder start</span><br><span class="line">pg_ctl -D /path/to/data/folder restart</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-Config-file"><a href="#3-Config-file" class="headerlink" title="3. Config file"></a>3. Config file</h3><ul>
-<li>pg_hba.config: use to config authentication method </li>
-<li>postgres.conf: use to config listenning host, etc.</li>
-</ul>
-<h3 id="4-Config-authentication"><a href="#4-Config-authentication" class="headerlink" title="4. Config authentication"></a>4. Config authentication</h3><ul>
-<li><p><strong>For server</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /path/to/pg_hba.conf</span><br><span class="line"><span class="comment"># add the following line:</span></span><br><span class="line">host    all             all             10.0.0.70/32            md5</span><br><span class="line"><span class="comment"># change IP address</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>For client</strong><br>Create ~/.pgpass and add the following line</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host:port:dbname:usr:<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
-<p>change permission</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 0600 ~/.pgpass</span><br></pre></td></tr></table></figure></li>
-</ul>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2017/07/24/postgres-memo/index/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -1647,8 +1427,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
                 
                 </a>
                 <p class="is-size-7">

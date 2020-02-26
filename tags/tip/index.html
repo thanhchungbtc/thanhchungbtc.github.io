@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai.css">
 
 
     
@@ -75,8 +75,6 @@
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
             
             </a>
         </div>
@@ -149,7 +147,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes read (About 249 words)
+                    2 minutes read (About 250 words)
                 </span>
                 
                 
@@ -164,20 +162,16 @@
         <div class="content">
             <h3 id="よく使われるコマンドをAliasに"><a href="#よく使われるコマンドをAliasに" class="headerlink" title="よく使われるコマンドをAliasに"></a>よく使われるコマンドをAliasに</h3><p><strong>~/.zshrc or ~/.bash_profile or whatever you use</strong></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># append this line to the bottom</span></span><br><span class="line"><span class="built_in">source</span> ~/.aliases</span><br></pre></td></tr></table></figure>
-<p><strong>~/.aliases</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> gs=<span class="string">"git status"</span></span><br><span class="line"><span class="built_in">alias</span> gl=<span class="string">"git log"</span></span><br><span class="line"><span class="built_in">alias</span> gaa=<span class="string">"git add ."</span></span><br><span class="line"><span class="built_in">alias</span> gc=<span class="string">"git commit -m "</span></span><br><span class="line"><span class="built_in">alias</span> gclean=<span class="string">"git reset --hard &amp;&amp; clean -df"</span></span><br><span class="line"><span class="built_in">alias</span> projects=<span class="string">"cd /Volumes/Data/projects "</span></span><br><span class="line"><span class="built_in">alias</span> p=<span class="string">"phpunit "</span></span><br><span class="line"><span class="built_in">alias</span> pf=<span class="string">"phpunit --filter "</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.aliases</span><br></pre></td></tr></table></figure>
-<p>これで <strong>gs</strong>は<strong>git status</strong>、<strong>gc</strong>はコミットなど便利に使える。</p>
-<h3 id="複数Pythonバージョンがあっても、PATH変更せず、好みバージョン使用できる"><a href="#複数Pythonバージョンがあっても、PATH変更せず、好みバージョン使用できる" class="headerlink" title="複数Pythonバージョンがあっても、PATH変更せず、好みバージョン使用できる"></a>複数Pythonバージョンがあっても、<strong>PATH</strong>変更せず、好みバージョン使用できる</h3><p><strong>python2</strong>と<strong>python3</strong>が混在な環境では<strong>python3</strong>コマンドを打つのは面倒だね。</p>
-<p><strong>~/.aliases</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> python=<span class="string">"python3"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="デフォルトのTerminalより、Oh-My-ZSH-を使う"><a href="#デフォルトのTerminalより、Oh-My-ZSH-を使う" class="headerlink" title="デフォルトのTerminalより、Oh My ZSH!を使う"></a>デフォルトの<strong>Terminal</strong>より、<strong>Oh My ZSH!</strong>を使う</h3><p>メリットは様々だが、<a href="https://ohmyz.sh/をご確認ください">https://ohmyz.sh/をご確認ください</a></p>
-<h3 id="Flutter-Catalina-error"><a href="#Flutter-Catalina-error" class="headerlink" title="Flutter Catalina error"></a>Flutter Catalina error</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo xattr -d com.apple.quarantine ~&#x2F;thanhchungbui&#x2F;flutter&#x2F;bin&#x2F;cache&#x2F;artifacts&#x2F;libimobiledevice&#x2F;idevice_id</span><br><span class="line"></span><br><span class="line">sudo xattr -d com.apple.quarantine ~&#x2F;flutter&#x2F;bin&#x2F;cache&#x2F;artifacts&#x2F;libimobiledevice&#x2F;idevice_id</span><br><span class="line">sudo xattr -d com.apple.quarantine ~&#x2F;flutter&#x2F;bin&#x2F;cache&#x2F;artifacts&#x2F;libimobiledevice&#x2F;ideviceinfo</span><br><span class="line">sudo xattr -d com.apple.quarantine ~&#x2F;flutter&#x2F;bin&#x2F;cache&#x2F;artifacts&#x2F;usbmuxd&#x2F;iproxy</span><br></pre></td></tr></table></figure>
-
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2018/06/23/mac-dev-tips/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -1261,8 +1255,6 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="Thanh Chung Bui" height="28">
                 
                 </a>
                 <p class="is-size-7">

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vue-shopping/precache-manifest.17861d75e54b4ea0d75265b42196a959.js"
+  "/vue-shopping/precache-manifest.f75f9530ee6f98167080d93109a69a39.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-shopping-clean-architecture"});

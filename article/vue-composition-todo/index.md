@@ -1,6 +1,6 @@
 ---
-title: "Clean architecture - Shopping cart vue"
-date: 2019-10-20
+title: "Vue composition api - todo app"
+date: 2020-05-15
 summary: ""
 thumbnail: ./thumbnail.png
 tags: ['vue', 'javascript']
